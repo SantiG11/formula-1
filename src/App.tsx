@@ -1,15 +1,23 @@
+import { useState } from "react";
 import "./App.css";
 
-import Header from "./components/Header";
-import Logo from "./components/Logo";
+import Layout from "./components/Layout";
+import { Calendar } from "./components/ui/calendar";
+import Hero from "./components/sections/Hero";
+import RaceResult from "./components/sections/RaceResult";
 
 function App() {
+  const [date, setDate] = useState<Date | undefined>(new Date());
   return (
-    <>
-      <Header>
-        <Logo />
-      </Header>
-    </>
+    <Layout>
+      <div className="flex-col flex items-center justify-center gap-5 mt-2 border-2 border-red-700 ">
+        <h1 className="text-3xl font-bold w-full text-center">
+          Welcome to the F1 App!
+        </h1>
+        <Hero />
+        <RaceResult />
+      </div>
+    </Layout>
   );
 }
 

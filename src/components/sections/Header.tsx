@@ -6,6 +6,6 @@ type HeaderProps = {
 
 export default function Header({ children }: HeaderProps) {
   return (
-    <header className="bg-gray-700 h-20 flex items-center">{children}</header>
+    <header className="bg-gray-700 h-15 flex items-center">{children}</header>
   );
 }
