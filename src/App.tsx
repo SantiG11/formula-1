@@ -10,7 +10,7 @@ function App() {
   const [date, setDate] = useState<Date | undefined>(new Date());
   return (
     <Layout>
-      <div className="flex-col flex items-center justify-center gap-5 mt-2 border-2 border-red-700 ">
+      <div className="flex-col flex items-center justify-center gap-5 mt-2">
         <h1 className="text-3xl font-bold w-full text-center">
           Welcome to the F1 App!
         </h1>
