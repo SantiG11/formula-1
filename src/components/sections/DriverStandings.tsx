@@ -8,47 +8,45 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import formatDate from "@/lib/formatDate";
 import { useEffect, useState } from "react";
 
-type RaceData = {
-  races?: {
-    raceName?: string;
-    date: string;
-    results: [
-      {
-        position: number;
-        points: number;
-        driver: {
-          driverId: string;
-          number: number;
-          shortName: string;
-          name: string;
-          surname: string;
-        };
-        team: {
-          teamId: string;
-          teamName: string;
-        };
-      },
-    ];
-  };
+type tableDate = {
+  season: number;
+  drivers_championship: [
+    {
+      position: number;
+      points: number;
+      driver: {
+        driverId: string;
+        number: number;
+        shortName: string;
+        name: string;
+        surname: string;
+      };
+      team: {
+        teamId: string;
+        teamName: string;
+      };
+    },
+  ];
 };
 
-export default function RaceResult() {
-  const [raceData, setRaceData] = useState<RaceData | null>(null);
+export default function DriverStandings() {
+  const [tableData, setTableData] = useState<tableDate | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("https://f1api.dev/api/current/last/race");
+        const res = await fetch(
+          "https://f1api.dev/api/current/drivers-championship",
+        );
         if (!res.ok) {
           throw new Error("Failed to fetch");
         }
         const data = await res.json();
-        setRaceData(data);
+        setTableData(data);
       } catch (err) {
         if (err instanceof Error) {
           setError(err.message);
@@ -68,18 +66,10 @@ export default function RaceResult() {
 
   return (
     <section>
-      <h2>Last race results</h2>
-      <h3>{raceData?.races?.raceName ?? "Race Name"}</h3>
-      <p>
-        {raceData?.races?.date
-          ? formatDate(raceData?.races?.date)
-          : "Race Date"}
-      </p>
+      <h2>Drivers Championship</h2>
+
       <div>
         <Table className="text-xs">
-          <TableCaption>
-            {raceData?.races?.raceName ?? "Race Name"}
-          </TableCaption>
           <TableHeader>
             <TableRow>
               <TableHead className="text-center">Pos</TableHead>
@@ -90,24 +80,26 @@ export default function RaceResult() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {raceData?.races?.results.map((result) => {
+            {tableData?.drivers_championship.map((driverData) => {
               return (
                 <TableRow>
                   <TableCell className="text-center">
-                    {result.position}
+                    {driverData.position}
                   </TableCell>
                   <TableCell className="text-center">
-                    {result.driver.name} {result.driver.surname}
+                    {driverData.driver.name} {driverData.driver.surname}
                   </TableCell>
                   <TableCell className="text-center">
-                    {result.driver.number}
+                    {driverData.driver.number}
                   </TableCell>
                   <TableCell className="text-center">
-                    {result.team.teamName
+                    {driverData.team.teamName
                       .replace(/\b(Formula 1 Team|F1 Team)\b/g, "")
                       .trim()}
                   </TableCell>
-                  <TableCell className="text-center">{result.points}</TableCell>
+                  <TableCell className="text-center">
+                    {driverData.points}
+                  </TableCell>
                 </TableRow>
               );
             })}

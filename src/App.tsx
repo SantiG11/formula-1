@@ -5,6 +5,7 @@ import Layout from "./components/Layout";
 import { Calendar } from "./components/ui/calendar";
 import Hero from "./components/sections/Hero";
 import RaceResult from "./components/sections/RaceResult";
+import DriverStandings from "./components/sections/DriverStandings";
 
 function App() {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -16,6 +17,7 @@ function App() {
         </h1>
         <Hero />
         <RaceResult />
+        <DriverStandings />
       </div>
     </Layout>
   );
