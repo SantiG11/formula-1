@@ -3,7 +3,6 @@ import {
   TableBody,
   TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -111,13 +110,6 @@ export default function RaceResult() {
                 </TableRow>
               );
             })}
-            <TableRow>
-              <TableCell className="text-center">1</TableCell>
-              <TableCell className="text-center">Max Verstappen</TableCell>
-              <TableCell className="text-center">1</TableCell>
-              <TableCell className="text-center">Red Bull</TableCell>
-              <TableCell className="text-center">25</TableCell>
-            </TableRow>
           </TableBody>
         </Table>
       </div>

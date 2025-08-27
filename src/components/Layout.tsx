@@ -8,12 +8,15 @@ type LayoutProps = {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <div className="grid grid-rows-[auto_1fr_auto] h-screen max-h-screen bg-background border-2">
+    <div className="grid grid-rows-[auto_1fr_auto]  max-h-screen bg-background  border-2 gap-2  ">
       <Header>
         <Logo />
       </Header>
-
-      <main className="overflow-y-auto ">{children}</main>
+      <div className="overflow-y-auto flex justify-center">
+        <aside></aside>
+        <main className="max-w-[800px] flex flex-col gap-5  ">{children}</main>
+        <aside></aside>
+      </div>
 
       <NavBar />
     </div>

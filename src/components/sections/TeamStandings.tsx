@@ -10,17 +10,10 @@ import { useEffect, useState } from "react";
 
 type tableDate = {
   season: number;
-  drivers_championship: [
+  constructors_championship: [
     {
       position: number;
       points: number;
-      driver: {
-        driverId: string;
-        number: number;
-        shortName: string;
-        name: string;
-        surname: string;
-      };
       team: {
         teamId: string;
         teamName: string;
@@ -29,7 +22,7 @@ type tableDate = {
   ];
 };
 
-export default function DriverStandings() {
+export default function TeamStandings() {
   const [tableData, setTableData] = useState<tableDate | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -38,7 +31,7 @@ export default function DriverStandings() {
     const fetchData = async () => {
       try {
         const res = await fetch(
-          "https://f1api.dev/api/current/drivers-championship",
+          "https://f1api.dev/api/current/constructors-championship",
         );
         if (!res.ok) {
           throw new Error("Failed to fetch");
@@ -63,40 +56,32 @@ export default function DriverStandings() {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <section>
-      <h2>Drivers Championship</h2>
+    <section className="flex flex-col gap-3 p-2">
+      <h2>Constructors Championship</h2>
 
-      <div>
-        <Table className="text-xs">
+      <div className="border rounded-xl overflow-hidden">
+        <Table className="text-xs w-[100%]   ">
           <TableHeader>
             <TableRow>
               <TableHead className="text-center">Pos</TableHead>
-              <TableHead className="text-center">Driver</TableHead>
-              <TableHead className="text-center">Number</TableHead>
               <TableHead className="text-center">Team</TableHead>
               <TableHead className="text-center">Pts</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {tableData?.drivers_championship.map((driverData) => {
+            {tableData?.constructors_championship.map((teamData) => {
               return (
                 <TableRow>
                   <TableCell className="text-center">
-                    {driverData.position}
+                    {teamData.position}
                   </TableCell>
-                  <TableCell className="text-center">
-                    {driverData.driver.name} {driverData.driver.surname}
-                  </TableCell>
-                  <TableCell className="text-center">
-                    {driverData.driver.number}
-                  </TableCell>
-                  <TableCell className="text-center">
-                    {driverData.team.teamName
+                  <TableCell className="text-center w-">
+                    {teamData.team.teamName
                       .replace(/\b(Formula 1 Team|F1 Team)\b/g, "")
                       .trim()}
                   </TableCell>
                   <TableCell className="text-center">
-                    {driverData.points}
+                    {teamData.points}
                   </TableCell>
                 </TableRow>
               );
