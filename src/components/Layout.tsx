@@ -14,7 +14,7 @@ export default function Layout({ children }: LayoutProps) {
       </Header>
       <div className="overflow-y-auto flex justify-center">
         <aside></aside>
-        <main className="max-w-[800px] flex flex-col gap-5  ">{children}</main>
+        <main className="max-w-[800px] flex flex-col gap-5 ">{children}</main>
         <aside></aside>
       </div>
 

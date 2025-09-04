@@ -6,9 +6,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useEffect, useState } from "react";
 
-type tableDate = {
+import SectionContainer from "../shared/SectionContainer";
+import SectionTitle from "../shared/SectionTitle";
+import TableContainer from "../shared/TableContainer";
+import useGetData from "@/hooks/useGetData";
+
+type TableData = {
   season: number;
   constructors_championship: [
     {
@@ -23,43 +27,20 @@ type tableDate = {
 };
 
 export default function TeamStandings() {
-  const [tableData, setTableData] = useState<tableDate | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(
-          "https://f1api.dev/api/current/constructors-championship",
-        );
-        if (!res.ok) {
-          throw new Error("Failed to fetch");
-        }
-        const data = await res.json();
-        setTableData(data);
-      } catch (err) {
-        if (err instanceof Error) {
-          setError(err.message);
-        } else {
-          setError(String(err));
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const {
+    data: tableData,
+    loading,
+    error,
+  } = useGetData<TableData>("/constructors-championship");
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <section className="flex flex-col gap-3 p-2">
-      <h2>Constructors Championship</h2>
+    <SectionContainer>
+      <SectionTitle>Constructors Championship</SectionTitle>
 
-      <div className="border rounded-xl overflow-hidden">
+      <TableContainer>
         <Table className="text-xs w-[100%]   ">
           <TableHeader>
             <TableRow>
@@ -71,7 +52,7 @@ export default function TeamStandings() {
           <TableBody>
             {tableData?.constructors_championship.map((teamData) => {
               return (
-                <TableRow>
+                <TableRow key={teamData.team.teamName}>
                   <TableCell className="text-center">
                     {teamData.position}
                   </TableCell>
@@ -88,7 +69,7 @@ export default function TeamStandings() {
             })}
           </TableBody>
         </Table>
-      </div>
-    </section>
+      </TableContainer>
+    </SectionContainer>
   );
 }

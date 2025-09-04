@@ -6,9 +6,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useEffect, useState } from "react";
 
-type tableDate = {
+import SectionContainer from "../shared/SectionContainer";
+import TableContainer from "../shared/TableContainer";
+import SectionTitle from "../shared/SectionTitle";
+import useGetData from "@/hooks/useGetData";
+
+type TableData = {
   season: number;
   drivers_championship: [
     {
@@ -30,43 +34,20 @@ type tableDate = {
 };
 
 export default function DriverStandings() {
-  const [tableData, setTableData] = useState<tableDate | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(
-          "https://f1api.dev/api/current/drivers-championship",
-        );
-        if (!res.ok) {
-          throw new Error("Failed to fetch");
-        }
-        const data = await res.json();
-        setTableData(data);
-      } catch (err) {
-        if (err instanceof Error) {
-          setError(err.message);
-        } else {
-          setError(String(err));
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const {
+    data: tableData,
+    loading,
+    error,
+  } = useGetData<TableData>("/drivers-championship");
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <section>
-      <h2>Drivers Championship</h2>
+    <SectionContainer>
+      <SectionTitle>Drivers Championship</SectionTitle>
 
-      <div>
+      <TableContainer>
         <Table className="text-xs">
           <TableHeader>
             <TableRow>
@@ -80,17 +61,17 @@ export default function DriverStandings() {
           <TableBody>
             {tableData?.drivers_championship.map((driverData) => {
               return (
-                <TableRow>
+                <TableRow key={driverData.driver.name}>
                   <TableCell className="text-center">
                     {driverData.position}
                   </TableCell>
-                  <TableCell className="text-center">
+                  <TableCell className="text-left  w-[20%]">
                     {driverData.driver.name} {driverData.driver.surname}
                   </TableCell>
                   <TableCell className="text-center">
                     {driverData.driver.number}
                   </TableCell>
-                  <TableCell className="text-center">
+                  <TableCell className="text-left  w-[20%]">
                     {driverData.team.teamName
                       .replace(/\b(Formula 1 Team|F1 Team)\b/g, "")
                       .trim()}
@@ -103,7 +84,7 @@ export default function DriverStandings() {
             })}
           </TableBody>
         </Table>
-      </div>
-    </section>
+      </TableContainer>
+    </SectionContainer>
   );
 }

@@ -8,7 +8,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import formatDate from "@/lib/formatDate";
-import { useEffect, useState } from "react";
+import TableContainer from "../shared/TableContainer";
+import SectionContainer from "../shared/SectionContainer";
+import SectionTitle from "../shared/SectionTitle";
+import useGetData from "@/hooks/useGetData";
 
 type RaceData = {
   races?: {
@@ -35,46 +38,21 @@ type RaceData = {
 };
 
 export default function RaceResult() {
-  const [raceData, setRaceData] = useState<RaceData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch("https://f1api.dev/api/current/last/race");
-        if (!res.ok) {
-          throw new Error("Failed to fetch");
-        }
-        const data = await res.json();
-        setRaceData(data);
-      } catch (err) {
-        if (err instanceof Error) {
-          setError(err.message);
-        } else {
-          setError(String(err));
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const { data: raceData, loading, error } = useGetData<RaceData>("/last/race");
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <section>
-      <h2>Last race results</h2>
+    <SectionContainer>
+      <SectionTitle>Last race results</SectionTitle>
       <h3>{raceData?.races?.raceName ?? "Race Name"}</h3>
       <p>
         {raceData?.races?.date
           ? formatDate(raceData?.races?.date)
           : "Race Date"}
       </p>
-      <div>
+      <TableContainer>
         <Table className="text-xs">
           <TableCaption>
             {raceData?.races?.raceName ?? "Race Name"}
@@ -91,17 +69,17 @@ export default function RaceResult() {
           <TableBody>
             {raceData?.races?.results.map((result) => {
               return (
-                <TableRow>
+                <TableRow key={result.driver.number}>
                   <TableCell className="text-center">
                     {result.position}
                   </TableCell>
-                  <TableCell className="text-center">
+                  <TableCell className="text-left w-[20%]">
                     {result.driver.name} {result.driver.surname}
                   </TableCell>
                   <TableCell className="text-center">
                     {result.driver.number}
                   </TableCell>
-                  <TableCell className="text-center">
+                  <TableCell className="text-left  w-[20%]">
                     {result.team.teamName
                       .replace(/\b(Formula 1 Team|F1 Team)\b/g, "")
                       .trim()}
@@ -112,7 +90,7 @@ export default function RaceResult() {
             })}
           </TableBody>
         </Table>
-      </div>
-    </section>
+      </TableContainer>
+    </SectionContainer>
   );
 }
