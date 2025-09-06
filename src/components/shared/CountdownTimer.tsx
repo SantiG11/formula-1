@@ -1,6 +1,20 @@
+import useGetData from "@/hooks/useGetData";
 import { useEffect, useState } from "react";
 
-const targetDate = new Date("2025-10-16T14:00:00Z").getTime();
+type RaceData = {
+  race?: [
+    {
+      raceName?: string;
+
+      schedule: {
+        race: {
+          date: string;
+          time: string;
+        };
+      };
+    },
+  ];
+};
 
 export default function CountdownTimer() {
   const [timeLeft, setTimeLeft] = useState({
@@ -10,29 +24,39 @@ export default function CountdownTimer() {
     seconds: 0,
   });
 
+  const { data: data, loading, error } = useGetData<RaceData>("/next");
+
+  const nextRaceDate = data
+    ? `${data?.race?.[0].schedule.race.date}  ${data?.race?.[0].schedule.race.time}`
+    : new Date().getTime();
+
+  function getTimeDifference(targetDate: number) {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    setTimeLeft({
+      days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+      minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+      seconds: Math.floor((distance % (1000 * 60)) / 1000),
+    });
+  }
+
   useEffect(() => {
+    console.log(nextRaceDate);
+    const targetDate = new Date(nextRaceDate).getTime();
+
+    getTimeDifference(targetDate);
+
     const interval = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
-
-      if (distance < 0) {
-        clearInterval(interval);
-        // You can set a "Race in progress" or "Race finished" message here
-        return;
-      }
-
-      setTimeLeft({
-        days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-        hours: Math.floor(
-          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-        ),
-        minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
-        seconds: Math.floor((distance % (1000 * 60)) / 1000),
-      });
+      getTimeDifference(targetDate);
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [nextRaceDate]);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="flex justify-center gap-4 sm:gap-8 text-center">

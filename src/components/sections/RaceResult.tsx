@@ -43,6 +43,8 @@ export default function RaceResult() {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
+  // console.log(raceData);
+
   return (
     <SectionContainer>
       <SectionTitle>Last race results</SectionTitle>
