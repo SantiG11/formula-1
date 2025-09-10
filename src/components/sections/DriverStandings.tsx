@@ -38,7 +38,7 @@ export default function DriverStandings() {
     data: tableData,
     loading,
     error,
-  } = useGetData<TableData>("/drivers-championship");
+  } = useGetData<TableData>("/current/drivers-championship");
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;

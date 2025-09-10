@@ -8,7 +8,7 @@ export default function useGetData<T>(endpoint: string) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`https://f1api.dev/api/current${endpoint}`);
+        const res = await fetch(`https://f1api.dev/api${endpoint}`);
         if (!res.ok) {
           throw new Error("Failed to fetch");
         }

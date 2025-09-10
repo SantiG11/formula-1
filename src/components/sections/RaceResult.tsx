@@ -12,9 +12,12 @@ import TableContainer from "../shared/TableContainer";
 import SectionContainer from "../shared/SectionContainer";
 import SectionTitle from "../shared/SectionTitle";
 import useGetData from "@/hooks/useGetData";
+import { useEffect, useState } from "react";
 
-type RaceData = {
+export type RaceData = {
+  season: number;
   races?: {
+    round: number;
     raceName?: string;
     date: string;
     results: [
@@ -37,8 +40,19 @@ type RaceData = {
   };
 };
 
-export default function RaceResult() {
-  const { data: raceData, loading, error } = useGetData<RaceData>("/last/race");
+interface RaceResultProps {
+  race: string;
+  isLastRace: boolean;
+}
+
+export default function RaceResult({ race, isLastRace }: RaceResultProps) {
+  const { data: raceData, loading, error } = useGetData<RaceData>(race);
+
+  const [round, setRound] = useState<number | undefined>();
+
+  useEffect(() => {
+    setRound(raceData?.races?.round);
+  }, [raceData]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -47,13 +61,16 @@ export default function RaceResult() {
 
   return (
     <SectionContainer>
-      <SectionTitle>Last race results</SectionTitle>
+      <SectionTitle>
+        {isLastRace ? `Last race results (round ${round})` : `Round ${round}`}
+      </SectionTitle>
       <h3>{raceData?.races?.raceName ?? "Race Name"}</h3>
       <p>
         {raceData?.races?.date
           ? formatDate(raceData?.races?.date)
           : "Race Date"}
       </p>
+
       <TableContainer>
         <Table className="text-xs">
           <TableCaption>

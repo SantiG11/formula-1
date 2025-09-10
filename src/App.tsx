@@ -6,6 +6,7 @@ import Hero from "./components/sections/Hero";
 import RaceResult from "./components/sections/RaceResult";
 import DriverStandings from "./components/sections/DriverStandings";
 import TeamStandings from "./components/sections/TeamStandings";
+import RaceResultContainer from "./components/sections/RaceResultContainer";
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
       {/* <div className="flex-col flex items-center justify-center gap-5 mt-2"> */}
 
       <Hero />
-      <RaceResult />
+      <RaceResultContainer />
+
       <DriverStandings />
       <TeamStandings />
       {/* </div> */}

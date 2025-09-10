@@ -24,7 +24,7 @@ export default function CountdownTimer() {
     seconds: 0,
   });
 
-  const { data: data, loading, error } = useGetData<RaceData>("/next");
+  const { data: data, loading, error } = useGetData<RaceData>("/current/next");
 
   const nextRaceDate = data
     ? `${data?.race?.[0].schedule.race.date}  ${data?.race?.[0].schedule.race.time}`

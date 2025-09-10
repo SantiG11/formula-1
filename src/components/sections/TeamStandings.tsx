@@ -31,7 +31,7 @@ export default function TeamStandings() {
     data: tableData,
     loading,
     error,
-  } = useGetData<TableData>("/constructors-championship");
+  } = useGetData<TableData>("/current/constructors-championship");
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
