@@ -6,11 +6,7 @@ import SectionContainer from "../shared/SectionContainer";
 import { Button } from "../ui/button";
 
 export default function RaceResultContainer() {
-  const {
-    data: raceData,
-    loading,
-    error,
-  } = useGetData<RaceData>("/current/last/race");
+  const { data: raceData } = useGetData<RaceData>("/current/last/race");
 
   const [race, setRace] = useState("");
   const [round, setRound] = useState<number | null>(null);
@@ -65,7 +61,7 @@ export default function RaceResultContainer() {
       />
       <div className="flex justify-between">
         <Button variant="outline" onClick={getPrevRace}>
-          Previous Race
+          Prev Race
         </Button>
         <Button variant="outline" onClick={getNextRace}>
           Next Race

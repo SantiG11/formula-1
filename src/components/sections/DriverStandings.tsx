@@ -11,6 +11,7 @@ import SectionContainer from "../shared/SectionContainer";
 import TableContainer from "../shared/TableContainer";
 import SectionTitle from "../shared/SectionTitle";
 import useGetData from "@/hooks/useGetData";
+import { Skeleton } from "../ui/skeleton";
 
 type TableData = {
   season: number;
@@ -40,7 +41,13 @@ export default function DriverStandings() {
     error,
   } = useGetData<TableData>("/current/drivers-championship");
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <SectionContainer>
+        <Skeleton className="h-[32px] w-[180px]" />
+        <Skeleton className="h-[850px] " />
+      </SectionContainer>
+    );
   if (error) return <p>Error: {error}</p>;
 
   return (

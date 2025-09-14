@@ -1,5 +1,6 @@
 import useGetData from "@/hooks/useGetData";
 import { useEffect, useState } from "react";
+import { Skeleton } from "../ui/skeleton";
 
 type RaceData = {
   race?: [
@@ -55,7 +56,18 @@ export default function CountdownTimer() {
     return () => clearInterval(interval);
   }, [nextRaceDate]);
 
-  if (loading) return <p>Loading...</p>;
+  if (
+    loading ||
+    (timeLeft.days <= 0 &&
+      timeLeft.hours <= 0 &&
+      timeLeft.minutes <= 0 &&
+      timeLeft.seconds <= 0)
+  )
+    return (
+      <div className="flex justify-center h-[56px]">
+        <Skeleton className="h[56px] w-[235px]" />
+      </div>
+    );
   if (error) return <p>Error: {error}</p>;
 
   return (

@@ -11,6 +11,7 @@ import SectionContainer from "../shared/SectionContainer";
 import SectionTitle from "../shared/SectionTitle";
 import TableContainer from "../shared/TableContainer";
 import useGetData from "@/hooks/useGetData";
+import { Skeleton } from "../ui/skeleton";
 
 type TableData = {
   season: number;
@@ -33,15 +34,21 @@ export default function TeamStandings() {
     error,
   } = useGetData<TableData>("/current/constructors-championship");
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <SectionContainer>
+        <Skeleton className="h-[32px] w-[180px]" />
+        <Skeleton className="h-[400px] " />
+      </SectionContainer>
+    );
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <SectionContainer>
+    <SectionContainer classes="pb-5">
       <SectionTitle>Constructors Championship</SectionTitle>
 
       <TableContainer>
-        <Table className="text-xs w-[100%]   ">
+        <Table className="text-xs w-[100%]">
           <TableHeader>
             <TableRow>
               <TableHead className="text-center">Pos</TableHead>
@@ -56,7 +63,7 @@ export default function TeamStandings() {
                   <TableCell className="text-center">
                     {teamData.position}
                   </TableCell>
-                  <TableCell className="text-center w-">
+                  <TableCell className="text-center ">
                     {teamData.team.teamName
                       .replace(/\b(Formula 1 Team|F1 Team)\b/g, "")
                       .trim()}

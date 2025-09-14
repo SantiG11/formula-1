@@ -13,6 +13,7 @@ import SectionContainer from "../shared/SectionContainer";
 import SectionTitle from "../shared/SectionTitle";
 import useGetData from "@/hooks/useGetData";
 import { useEffect, useState } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export type RaceData = {
   season: number;
@@ -54,7 +55,15 @@ export default function RaceResult({ race, isLastRace }: RaceResultProps) {
     setRound(raceData?.races?.round);
   }, [raceData]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <SectionContainer>
+        <Skeleton className="h-[32px] w-[150px]" />
+        <Skeleton className="h-[24px] w-[170px]" />
+        <Skeleton className="h-[24px] w-[120px]" />
+        <Skeleton className="h-[850px] " />
+      </SectionContainer>
+    );
   if (error) return <p>Error: {error}</p>;
 
   // console.log(raceData);
