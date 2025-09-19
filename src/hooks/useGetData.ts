@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from "@/lib/constants";
 
 export default function useGetData<T>(endpoint: string) {
   const [data, setData] = useState<T | null>(null);
@@ -8,7 +9,7 @@ export default function useGetData<T>(endpoint: string) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`https://f1api.dev/api${endpoint}`);
+        const res = await fetch(`${API_BASE_URL}${endpoint}`);
         if (!res.ok) {
           throw new Error("Failed to fetch");
         }
@@ -24,9 +25,9 @@ export default function useGetData<T>(endpoint: string) {
         setLoading(false);
       }
     };
-
+    console.log(API_BASE_URL);
     fetchData();
-  }, []);
+  }, [endpoint]);
 
   return { data, loading, error };
 }

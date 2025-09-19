@@ -6,64 +6,48 @@ import SectionContainer from "../shared/SectionContainer";
 import { Button } from "../ui/button";
 
 export default function RaceResultContainer() {
-  const { data: raceData } = useGetData<RaceData>("/current/last/race");
+  const { data: lastRaceData } = useGetData<RaceData>("/current/last/race");
+  const lastRoundNumber = lastRaceData?.races?.round;
 
-  const [race, setRace] = useState("");
-  const [round, setRound] = useState<number | null>(null);
-  const [isLastRace, setIsLastRace] = useState<boolean>(true);
-
-  const getPrevRace = () => {
-    setRound((prevRound) => {
-      if (prevRound === null) return prevRound;
-      if (raceData?.races?.round && prevRound > 1) {
-        return prevRound - 1;
-      }
-      return prevRound;
-    });
-
-    console.log(round);
-  };
-
-  const getNextRace = () => {
-    setRound((prevRound) => {
-      if (prevRound === null) return prevRound;
-      if (raceData?.races?.round && prevRound < raceData.races.round) {
-        return prevRound + 1;
-      }
-      return prevRound;
-    });
-
-    console.log(round);
-  };
-  useEffect(() => {
-    if (raceData?.races?.round) {
-      setRound(raceData?.races?.round);
-    }
-    console.log(round);
-  }, [raceData]);
+  const [currentRound, setCurrentRound] = useState<number | null>(null);
 
   useEffect(() => {
-    if (round === raceData?.races?.round) {
-      setIsLastRace(true);
-    } else {
-      setIsLastRace(false);
+    if (lastRoundNumber) {
+      setCurrentRound(lastRoundNumber);
     }
-    setRace(`/2025/${round}/race`);
-    console.log(round);
-  }, [round]);
+  }, [lastRoundNumber]);
+
+  const isLastRace = currentRound === lastRoundNumber;
+  const raceEndpoint = currentRound ? `/2025/${currentRound}/race` : "";
+
+  const handlePrevRace = () => {
+    setCurrentRound((prev) => (prev ? prev - 1 : null));
+  };
+
+  const handleNextRace = () => {
+    setCurrentRound((prev) => (prev ? prev + 1 : null));
+  };
 
   return (
     <SectionContainer>
       <RaceResult
-        race={race === "" ? "/current/last/race" : race}
-        key={race}
+        race={raceEndpoint}
+        key={raceEndpoint}
         isLastRace={isLastRace}
       />
       <div className="flex justify-between">
-        <Button variant="outline" onClick={getPrevRace}>
+        <Button
+          variant="outline"
+          onClick={handlePrevRace}
+          disabled={currentRound === 1}
+        >
           Prev Race
         </Button>
-        <Button variant="outline" onClick={getNextRace}>
+        <Button
+          variant="outline"
+          onClick={handleNextRace}
+          disabled={isLastRace}
+        >
           Next Race
         </Button>
       </div>
