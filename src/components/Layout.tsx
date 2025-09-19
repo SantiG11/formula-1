@@ -1,10 +1,7 @@
 import Header from "./sections/Header";
 import Logo from "./shared/Logo";
 import NavBar from "./shared/NavBar";
-
-type LayoutProps = {
-  children: React.ReactNode;
-};
+import type { LayoutProps } from "@/lib/types";
 
 export default function Layout({ children }: LayoutProps) {
   return (

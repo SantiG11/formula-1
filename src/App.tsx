@@ -3,7 +3,7 @@ import "./App.css";
 import Layout from "./components/Layout";
 
 import Hero from "./components/sections/Hero";
-import RaceResult from "./components/sections/RaceResult";
+
 import DriverStandings from "./components/sections/DriverStandings";
 import TeamStandings from "./components/sections/TeamStandings";
 import RaceResultContainer from "./components/sections/RaceResultContainer";

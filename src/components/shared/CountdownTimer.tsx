@@ -1,21 +1,7 @@
 import useGetData from "@/hooks/useGetData";
 import { useEffect, useState } from "react";
 import { Skeleton } from "../ui/skeleton";
-
-type RaceData = {
-  race?: [
-    {
-      raceName?: string;
-
-      schedule: {
-        race: {
-          date: string;
-          time: string;
-        };
-      };
-    },
-  ];
-};
+import type { RaceData } from "@/lib/types";
 
 export default function CountdownTimer() {
   const [timeLeft, setTimeLeft] = useState({

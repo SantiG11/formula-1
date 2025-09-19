@@ -14,32 +14,7 @@ import SectionTitle from "../shared/SectionTitle";
 import useGetData from "@/hooks/useGetData";
 import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-
-export type RaceData = {
-  season: number;
-  races?: {
-    round: number;
-    raceName?: string;
-    date: string;
-    results: [
-      {
-        position: number;
-        points: number;
-        driver: {
-          driverId: string;
-          number: number;
-          shortName: string;
-          name: string;
-          surname: string;
-        };
-        team: {
-          teamId: string;
-          teamName: string;
-        };
-      },
-    ];
-  };
-};
+import type { RaceResultData } from "@/lib/types";
 
 interface RaceResultProps {
   race: string;
@@ -47,7 +22,7 @@ interface RaceResultProps {
 }
 
 export default function RaceResult({ race, isLastRace }: RaceResultProps) {
-  const { data: raceData, loading, error } = useGetData<RaceData>(race);
+  const { data: raceData, loading, error } = useGetData<RaceResultData>(race);
 
   const [round, setRound] = useState<number | undefined>();
 

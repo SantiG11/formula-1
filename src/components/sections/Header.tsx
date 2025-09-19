@@ -1,8 +1,4 @@
-import React from "react";
-
-type HeaderProps = {
-  children: React.ReactNode;
-};
+import type { HeaderProps } from "@/lib/types";
 
 export default function Header({ children }: HeaderProps) {
   return (
