@@ -1,26 +1,22 @@
 import "./App.css";
-
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import HomePage from "./pages/Home";
+import DriversPage from "./pages/Drivers";
 import Layout from "./components/Layout";
 
-import Hero from "./components/sections/Hero";
-
-import DriverStandings from "./components/sections/DriverStandings";
-import TeamStandings from "./components/sections/TeamStandings";
-import RaceResultContainer from "./components/sections/RaceResultContainer";
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      { path: "/", element: <HomePage /> },
+      { path: "/drivers", element: <DriversPage /> },
+    ],
+  },
+]);
 
 function App() {
-  return (
-    <Layout>
-      {/* <div className="flex-col flex items-center justify-center gap-5 mt-2"> */}
-
-      <Hero />
-      <RaceResultContainer />
-
-      <DriverStandings />
-      <TeamStandings />
-      {/* </div> */}
-    </Layout>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

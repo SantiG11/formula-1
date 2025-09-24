@@ -1,21 +1,20 @@
+import { Outlet } from "react-router-dom";
 import Header from "./sections/Header";
 import Logo from "./shared/Logo";
 import NavBar from "./shared/NavBar";
-import type { LayoutProps } from "@/lib/types";
 
-export default function Layout({ children }: LayoutProps) {
+export default function Layout() {
   return (
-    <div className="grid grid-rows-[auto_1fr_auto]  max-h-screen w-full  bg-background  ">
+    <div className="w-full  bg-background max-w-screen ">
       <Header>
         <Logo />
+        <NavBar />
       </Header>
-      <div className="overflow-y-auto flex justify-center ">
-        <main className="box-border max-w-[800px] flex flex-col gap-5 p-2  ">
-          {children}
+      <div className=" flex justify-center mt-15">
+        <main className="box-border max-w-[800px] flex flex-col gap-5 p-2  h-screen ">
+          <Outlet />
         </main>
       </div>
-
-      <NavBar />
     </div>
   );
 }
