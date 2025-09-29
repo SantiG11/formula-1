@@ -1,8 +1,10 @@
-import type { HeaderProps } from "@/lib/types";
+export type HeaderProps = {
+  children: React.ReactNode;
+};
 
 export default function Header({ children }: HeaderProps) {
   return (
-    <header className="bg-background h-15 flex gap-5 items-center fixed top-0 w-full z-10">
+    <header className="bg-background h-15 flex gap-5 items-center border-b">
       {children}
     </header>
   );

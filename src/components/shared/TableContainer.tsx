@@ -1,6 +1,8 @@
-import type { LayoutProps } from "@/lib/types";
+export type TableContainerProps = {
+  children: React.ReactNode;
+};
 
-export default function TableContainer({ children }: LayoutProps) {
+export default function TableContainer({ children }: TableContainerProps) {
   return (
     <div className="border rounded-xl overflow-hidden w-full ">{children}</div>
   );

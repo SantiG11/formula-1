@@ -13,26 +13,16 @@ import TableContainer from "../shared/TableContainer";
 import useGetData from "@/hooks/useGetData";
 import { Skeleton } from "../ui/skeleton";
 
-type TableData = {
-  season: number;
-  constructors_championship: [
-    {
-      position: number;
-      points: number;
-      team: {
-        teamId: string;
-        teamName: string;
-      };
-    },
-  ];
-};
+import type { ConstructorsChampionshipApiResponse } from "@/lib/types";
 
 export default function TeamStandings() {
   const {
-    data: tableData,
+    data: teamsData,
     loading,
     error,
-  } = useGetData<TableData>("/current/constructors-championship");
+  } = useGetData<ConstructorsChampionshipApiResponse>(
+    "/current/constructors-championship",
+  );
 
   if (loading)
     return (
@@ -57,7 +47,7 @@ export default function TeamStandings() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {tableData?.constructors_championship.map((teamData) => {
+            {teamsData?.constructors_championship.map((teamData) => {
               return (
                 <TableRow key={teamData.team.teamName}>
                   <TableCell className="text-center">

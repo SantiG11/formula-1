@@ -1,7 +1,7 @@
 import useGetData from "@/hooks/useGetData";
 import { useEffect, useState } from "react";
 import { Skeleton } from "../ui/skeleton";
-import type { RaceData } from "@/lib/types";
+import type { NextRaceApiResponse } from "@/lib/types";
 
 export default function CountdownTimer() {
   const [timeLeft, setTimeLeft] = useState({
@@ -11,7 +11,11 @@ export default function CountdownTimer() {
     seconds: 0,
   });
 
-  const { data: data, loading, error } = useGetData<RaceData>("/current/next");
+  const {
+    data: data,
+    loading,
+    error,
+  } = useGetData<NextRaceApiResponse>("/current/next");
 
   const nextRaceDate = data
     ? `${data?.race?.[0].schedule.race.date}  ${data?.race?.[0].schedule.race.time}`

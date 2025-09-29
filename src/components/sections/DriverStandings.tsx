@@ -12,14 +12,16 @@ import TableContainer from "../shared/TableContainer";
 import SectionTitle from "../shared/SectionTitle";
 import useGetData from "@/hooks/useGetData";
 import { Skeleton } from "../ui/skeleton";
-import type { DriversTableData } from "@/lib/types";
+import type { DriversChampionshipApiResponse } from "@/lib/types";
 
 export default function DriverStandings() {
   const {
-    data: DriversTableData,
+    data: driversData,
     loading,
     error,
-  } = useGetData<DriversTableData>("/current/drivers-championship");
+  } = useGetData<DriversChampionshipApiResponse>(
+    "/current/drivers-championship",
+  );
 
   if (loading)
     return (
@@ -46,7 +48,7 @@ export default function DriverStandings() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {DriversTableData?.drivers_championship.map((driverData) => {
+            {driversData?.drivers_championship.map((driverData) => {
               return (
                 <TableRow key={driverData.driver.name}>
                   <TableCell className="text-center">

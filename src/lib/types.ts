@@ -1,75 +1,64 @@
-// --- Layout
-export type LayoutProps = {
-  children: React.ReactNode;
-  classes?: string;
-};
+export interface Driver {
+  driverId: string;
+  number: number;
+  shortName: string;
+  name: string;
+  surname: string;
+}
 
-// --- Header
-export type HeaderProps = {
-  children: React.ReactNode;
-};
+export interface Team {
+  teamId: string;
+  teamName: string;
+}
 
-// --- Race data
-export type RaceData = {
-  race?: [
-    {
-      raceName?: string;
+export interface RaceSchedule {
+  date: string;
+  time: string;
+}
 
-      schedule: {
-        race: {
-          date: string;
-          time: string;
-        };
-      };
-    },
-  ];
-};
+export interface RaceResultItem {
+  position: number;
+  points: number;
+  driver: Driver;
+  team: Team;
+}
 
-// --- Race result data
-export type RaceResultData = {
+export interface ChampionshipStandingItem {
+  position: number;
+  points: number;
+  driver: Driver;
+  team: Team;
+}
+
+export interface NextRaceApiResponse {
+  race?: {
+    raceName?: string;
+    schedule: {
+      race: RaceSchedule;
+    };
+  }[];
+}
+
+export interface RaceResultApiResponse {
   season: number;
   races?: {
     round: number;
     raceName?: string;
     date: string;
-    results: [
-      {
-        position: number;
-        points: number;
-        driver: {
-          driverId: string;
-          number: number;
-          shortName: string;
-          name: string;
-          surname: string;
-        };
-        team: {
-          teamId: string;
-          teamName: string;
-        };
-      },
-    ];
+    results: RaceResultItem[];
   };
-};
+}
 
-//--- Drivers table data
-export type DriversTableData = {
+export interface DriversChampionshipApiResponse {
   season: number;
-  drivers_championship: [
-    {
-      position: number;
-      points: number;
-      driver: {
-        driverId: string;
-        number: number;
-        shortName: string;
-        name: string;
-        surname: string;
-      };
-      team: {
-        teamId: string;
-        teamName: string;
-      };
-    },
-  ];
-};
+  drivers_championship: ChampionshipStandingItem[];
+}
+
+export interface ConstructorsChampionshipApiResponse {
+  season: number;
+  constructors_championship: {
+    position: number;
+    points: number;
+    team: Team;
+  }[];
+}

@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import RaceResult from "./RaceResult";
-import type { RaceResultData } from "@/lib/types";
+import type { RaceResultApiResponse } from "@/lib/types";
 import useGetData from "@/hooks/useGetData";
 import SectionContainer from "../shared/SectionContainer";
 import { Button } from "../ui/button";
 
 export default function RaceResultContainer() {
   const { data: lastRaceData } =
-    useGetData<RaceResultData>("/current/last/race");
+    useGetData<RaceResultApiResponse>("/current/last/race");
   const lastRoundNumber = lastRaceData?.races?.round;
 
   const [currentRound, setCurrentRound] = useState<number | null>(null);

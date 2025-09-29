@@ -12,9 +12,9 @@ import TableContainer from "../shared/TableContainer";
 import SectionContainer from "../shared/SectionContainer";
 import SectionTitle from "../shared/SectionTitle";
 import useGetData from "@/hooks/useGetData";
-import { useEffect, useState } from "react";
+
 import { Skeleton } from "@/components/ui/skeleton";
-import type { RaceResultData } from "@/lib/types";
+import type { RaceResultApiResponse } from "@/lib/types";
 
 interface RaceResultProps {
   race: string;
@@ -22,13 +22,13 @@ interface RaceResultProps {
 }
 
 export default function RaceResult({ race, isLastRace }: RaceResultProps) {
-  const { data: raceData, loading, error } = useGetData<RaceResultData>(race);
+  const {
+    data: raceData,
+    loading,
+    error,
+  } = useGetData<RaceResultApiResponse>(race);
 
-  const [round, setRound] = useState<number | undefined>();
-
-  useEffect(() => {
-    setRound(raceData?.races?.round);
-  }, [raceData]);
+  const round = raceData?.races?.round;
 
   if (loading)
     return (
@@ -40,8 +40,6 @@ export default function RaceResult({ race, isLastRace }: RaceResultProps) {
       </SectionContainer>
     );
   if (error) return <p>Error: {error}</p>;
-
-  // console.log(raceData);
 
   return (
     <SectionContainer>
