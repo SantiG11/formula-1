@@ -4,6 +4,7 @@ import HomePage from "./pages/Home";
 import DriversPage from "./pages/Drivers";
 import Layout from "./components/Layout";
 import TeamsPage from "./pages/Teams";
+import CircuitsPage from "./pages/Circuits";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
       { path: "/", element: <HomePage /> },
       { path: "/drivers", element: <DriversPage /> },
       { path: "/teams", element: <TeamsPage /> },
+      { path: "/circuits", element: <CircuitsPage /> },
     ],
   },
 ]);

@@ -20,6 +20,21 @@ export interface Team {
   url: string;
 }
 
+export interface Circuit {
+  circuitId: string;
+  circuitName: string;
+  country: string;
+  city: string;
+  circuitLength: number;
+  lapRecord: string;
+  firstParticipationYear: number;
+  numberOfCorners: number;
+  fastestLapDriverId: string;
+  fastestLapTeamId: string;
+  fastestLapYear: number;
+  url: string;
+}
+
 export interface RaceSchedule {
   date: string;
   time: string;
@@ -80,4 +95,8 @@ export interface CurrentDriversInfoApiResponse {
 export interface CurrentTeamsInfoApiResponse {
   season: number;
   teams: Team[];
+}
+
+export interface CircuitsInfoApiResponse {
+  circuits: Circuit[];
 }
