@@ -4,6 +4,10 @@ export interface Driver {
   shortName: string;
   name: string;
   surname: string;
+  url: string;
+  nationality: string;
+  teamId: string;
+  birthday: string;
 }
 
 export interface Team {
@@ -61,4 +65,9 @@ export interface ConstructorsChampionshipApiResponse {
     points: number;
     team: Team;
   }[];
+}
+
+export interface CurrentDriversInfoApiResponse {
+  season: number;
+  drivers: Driver[];
 }
