@@ -13,6 +13,11 @@ export interface Driver {
 export interface Team {
   teamId: string;
   teamName: string;
+  teamNationality: string;
+  firstAppeareance: number;
+  constructorsChampionships: number;
+  driversChampionships: 8;
+  url: string;
 }
 
 export interface RaceSchedule {
@@ -70,4 +75,9 @@ export interface ConstructorsChampionshipApiResponse {
 export interface CurrentDriversInfoApiResponse {
   season: number;
   drivers: Driver[];
+}
+
+export interface CurrentTeamsInfoApiResponse {
+  season: number;
+  teams: Team[];
 }

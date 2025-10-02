@@ -20,7 +20,7 @@ export default function NavBar() {
           <Link to="/drivers">Drivers</Link>
         </NavigationMenuItem>
         <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-          <Link to="/drivers">Docs</Link>
+          <Link to="/teams">Teams</Link>
         </NavigationMenuLink>
       </NavigationMenuList>
     </NavigationMenu>

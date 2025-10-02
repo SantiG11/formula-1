@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "../ui/card";
 
-export default function InfoCard(driver: Driver) {
+export default function DriverInfoCard(driver: Driver) {
   return (
     <Card>
       <CardHeader>

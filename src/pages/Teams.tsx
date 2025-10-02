@@ -1,28 +1,29 @@
 import Grid from "@/components/shared/Grid";
+
 import SectionContainer from "@/components/shared/SectionContainer";
 import SectionTitle from "@/components/shared/SectionTitle";
 import { Skeleton } from "@/components/ui/skeleton";
 import useGetData from "@/hooks/useGetData";
-import type { CurrentDriversInfoApiResponse } from "@/lib/types";
-import DriverInfoCard from "@/components/sections/DriverInfoCard";
+import type { CurrentTeamsInfoApiResponse } from "@/lib/types";
+import TeamInfoCard from "@/components/sections/TeamInfoCard";
 
-export default function DriversPage() {
+export default function TeamsPage() {
   const {
-    data: driversData,
+    data: teamsData,
     loading,
     error,
-  } = useGetData<CurrentDriversInfoApiResponse>("/current/drivers");
+  } = useGetData<CurrentTeamsInfoApiResponse>("/current/teams");
 
   if (loading) return <Skeleton className="h-full w-full" />;
   if (error) return <p>Error: {error}</p>;
 
   return (
     <SectionContainer>
-      <SectionTitle>Drivers info page</SectionTitle>
+      <SectionTitle>Teams info page</SectionTitle>
 
       <Grid>
-        {driversData?.drivers.map((driver) => {
-          return <DriverInfoCard {...driver} key={driver.driverId} />;
+        {teamsData?.teams.map((team) => {
+          return <TeamInfoCard {...team} key={team.teamId} />;
         })}
       </Grid>
     </SectionContainer>
