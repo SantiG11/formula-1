@@ -8,7 +8,15 @@ import {
   CardTitle,
 } from "../ui/card";
 
+import { getAssetUrl } from "@/utils/getImage";
+
 export default function TeamInfoCard(team: Team) {
+  const assetUrl = getAssetUrl({
+    type: "Teams",
+    id: team.teamId,
+    extension: "avif",
+  });
+
   return (
     <Card>
       <CardHeader>
@@ -16,9 +24,9 @@ export default function TeamInfoCard(team: Team) {
       </CardHeader>
       <CardContent className=" border-2 border-accent">
         <img
-          src={team.url}
+          src={assetUrl || ""}
           alt={team.teamId}
-          className="flex justify-center items-center border-2 border-accent min-h-[200px]"
+          className="flex justify-center items-center border-2 border-accent  "
         />
       </CardContent>
       <CardFooter>

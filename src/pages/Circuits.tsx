@@ -4,6 +4,7 @@ import SectionContainer from "@/components/shared/SectionContainer";
 import SectionTitle from "@/components/shared/SectionTitle";
 import { Skeleton } from "@/components/ui/skeleton";
 import useGetData from "@/hooks/useGetData";
+
 import type { CircuitsInfoApiResponse } from "@/lib/types";
 
 export default function CircuitsPage() {

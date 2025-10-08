@@ -7,29 +7,43 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
+import { getAssetUrl } from "@/utils/getImage";
 
 export default function CircuitInfoCard(circuit: Circuit) {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{circuit.circuitName}</CardTitle>
-      </CardHeader>
-      <CardContent className=" border-2 border-accent">
-        <img
-          src={circuit.url}
-          alt={circuit.circuitId}
-          className="flex justify-center items-center border-2 border-accent min-h-[200px]"
-        />
-      </CardContent>
-      <CardFooter>
-        <CardDescription className="flex flex-wrap justify-between gap-2">
-          <p>Country: {circuit.country}</p>
-          <p>City: {circuit.city}</p>
-          <p>Record: {circuit.lapRecord}</p>
-          <p>Length: {circuit.circuitLength}</p>
-          <p>First participation: {circuit.firstParticipationYear}</p>
-        </CardDescription>
-      </CardFooter>
-    </Card>
-  );
+  const assetUrl = getAssetUrl({
+    type: "Circuits",
+    id: circuit.circuitId,
+    extension: "avif",
+  });
+
+  if (!assetUrl) {
+    return null; // Skip rendering this card
+  }
+  console.log(assetUrl);
+  if (assetUrl) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>{circuit.circuitName}</CardTitle>
+        </CardHeader>
+        <CardContent className=" border-2 border-accent min-h-[200px] flex justify-center items-center">
+          <img
+            src={assetUrl}
+            alt={circuit.circuitId}
+            className="flex justify-center items-center border-2 border-accent "
+          />
+        </CardContent>
+        <CardFooter>
+          <CardDescription className="flex flex-wrap justify-between gap-2">
+            <p>Country: {circuit.country}</p>
+            <p>City: {circuit.city}</p>
+            <p>Record: {circuit.lapRecord}</p>
+            <p>Length: {circuit.circuitLength}</p>
+            <p>First participation: {circuit.firstParticipationYear}</p>
+            <p>{circuit.circuitId}</p>
+          </CardDescription>
+        </CardFooter>
+      </Card>
+    );
+  }
 }
