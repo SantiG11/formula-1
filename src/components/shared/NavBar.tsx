@@ -23,6 +23,9 @@ export default function NavBar() {
         <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
           <Link to="/circuits">Circuits</Link>
         </NavigationMenuLink>
+        <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+          <Link to="/calendar">Calendar</Link>
+        </NavigationMenuLink>
       </NavigationMenuList>
     </NavigationMenu>
   );

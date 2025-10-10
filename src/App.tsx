@@ -6,6 +6,8 @@ import Layout from "./components/Layout";
 import TeamsPage from "./pages/Teams";
 import CircuitsPage from "./pages/Circuits";
 
+import CalendarPage from "./pages/Calendar";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -15,6 +17,7 @@ const router = createBrowserRouter([
       { path: "/drivers", element: <DriversPage /> },
       { path: "/teams", element: <TeamsPage /> },
       { path: "/circuits", element: <CircuitsPage /> },
+      { path: "/calendar", element: <CalendarPage /> },
     ],
   },
 ]);

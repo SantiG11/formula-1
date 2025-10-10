@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import CountdownTimer from "../shared/CountdownTimer";
 import { Button } from "../ui/button";
 
@@ -17,7 +18,9 @@ export default function Hero() {
       </div>
       <CountdownTimer />
       <div className="flex flex-col w-full gap-5  items-center">
-        <Button className="w-48 h-10">Race Calendar</Button>
+        <Button className="w-48 h-10">
+          <Link to={"/calendar"}>Race Calendar</Link>
+        </Button>
         <Button className="w-48 h-10" variant="outline">
           Standings
         </Button>

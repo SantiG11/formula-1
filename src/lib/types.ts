@@ -35,6 +35,17 @@ export interface Circuit {
   url: string;
 }
 
+export interface RaceInfo {
+  circuit: Circuit;
+  raceId: string;
+  raceName: string;
+  round: number;
+  laps: number;
+  schedule: {
+    race: RaceSchedule;
+  };
+}
+
 export interface RaceSchedule {
   date: string;
   time: string;
@@ -99,4 +110,8 @@ export interface CurrentTeamsInfoApiResponse {
 
 export interface CircuitsInfoApiResponse {
   circuits: Circuit[];
+}
+
+export interface CalendarInfoApiResponse {
+  races: RaceInfo[];
 }
