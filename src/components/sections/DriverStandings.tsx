@@ -13,6 +13,7 @@ import SectionTitle from "../shared/SectionTitle";
 import useGetData from "@/hooks/useGetData";
 import { Skeleton } from "../ui/skeleton";
 import type { DriversChampionshipApiResponse } from "@/lib/types";
+import { Link } from "react-router-dom";
 
 export default function DriverStandings() {
   const {
@@ -55,7 +56,9 @@ export default function DriverStandings() {
                     {driverData.position}
                   </TableCell>
                   <TableCell className="text-left  w-[20%]">
-                    {driverData.driver.name} {driverData.driver.surname}
+                    <Link to={`/drivers/${driverData.driverId}`}>
+                      {driverData.driver.name} {driverData.driver.surname}
+                    </Link>
                   </TableCell>
                   <TableCell className="text-center">
                     {driverData.driver.number}

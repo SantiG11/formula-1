@@ -6,7 +6,7 @@ export interface Driver {
   surname: string;
   url: string;
   nationality: string;
-  teamId: string;
+  teamId?: string;
   birthday: string;
 }
 
@@ -63,6 +63,7 @@ export interface ChampionshipStandingItem {
   points: number;
   driver: Driver;
   team: Team;
+  driverId?: string;
 }
 
 export interface NextRaceApiResponse {
@@ -101,6 +102,11 @@ export interface ConstructorsChampionshipApiResponse {
 export interface CurrentDriversInfoApiResponse {
   season: number;
   drivers: Driver[];
+}
+
+export interface DriverInfoApiResponse {
+  driver: Driver;
+  team: Team;
 }
 
 export interface CurrentTeamsInfoApiResponse {

@@ -3,27 +3,51 @@ import { useEffect, useState } from "react";
 import { Skeleton } from "../ui/skeleton";
 import type { NextRaceApiResponse } from "@/lib/types";
 
+type TimeLeft = {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+};
+
 export default function CountdownTimer() {
-  const [timeLeft, setTimeLeft] = useState({
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>({
     days: 0,
     hours: 0,
     minutes: 0,
     seconds: 0,
   });
 
-  const {
-    data: data,
-    loading,
-    error,
-  } = useGetData<NextRaceApiResponse>("/current/next");
+  const { data, loading, error } =
+    useGetData<NextRaceApiResponse>("/current/next");
 
-  const nextRaceDate = data
-    ? `${data?.race?.[0].schedule.race.date}  ${data?.race?.[0].schedule.race.time}`
-    : new Date().getTime();
+  const nextRaceIso = data
+    ? (() => {
+        const date = data?.race?.[0]?.schedule?.race?.date ?? "";
+        const time = data?.race?.[0]?.schedule?.race?.time ?? "";
+        if (!date) return null;
+        const trimmedTime = time.trim();
+
+        if (
+          trimmedTime.includes("Z") ||
+          trimmedTime.includes("+") ||
+          trimmedTime.includes("-")
+        ) {
+          return `${date}T${trimmedTime}`;
+        }
+
+        return `${date}T${trimmedTime || "00:00:00"}Z`;
+      })()
+    : null;
 
   function getTimeDifference(targetDate: number) {
-    const now = new Date().getTime();
+    const now = Date.now();
     const distance = targetDate - now;
+
+    if (isNaN(distance) || distance <= 0) {
+      setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      return;
+    }
 
     setTimeLeft({
       days: Math.floor(distance / (1000 * 60 * 60 * 24)),
@@ -34,8 +58,10 @@ export default function CountdownTimer() {
   }
 
   useEffect(() => {
-    console.log(nextRaceDate);
-    const targetDate = new Date(nextRaceDate).getTime();
+    if (!nextRaceIso) return;
+
+    const targetDate = new Date(nextRaceIso).getTime();
+    if (isNaN(targetDate)) return;
 
     getTimeDifference(targetDate);
 
@@ -44,21 +70,21 @@ export default function CountdownTimer() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [nextRaceDate]);
+  }, [nextRaceIso]);
 
-  if (
-    loading ||
-    (timeLeft.days <= 0 &&
-      timeLeft.hours <= 0 &&
-      timeLeft.minutes <= 0 &&
-      timeLeft.seconds <= 0)
-  )
+  const isTimerEmpty =
+    timeLeft.days === 0 &&
+    timeLeft.hours === 0 &&
+    timeLeft.minutes === 0 &&
+    timeLeft.seconds === 0;
+
+  if (loading || (!nextRaceIso && isTimerEmpty))
     return (
       <div className="flex justify-center h-[56px]">
-        <Skeleton className="h[56px] w-[235px]" />
+        <Skeleton className="h-[56px] w-[235px]" />
       </div>
     );
-  if (error) return <p>Error: {error}</p>;
+  if (error) return <p>Error: {String(error)}</p>;
 
   return (
     <div className="flex justify-center gap-4 sm:gap-8 text-center">

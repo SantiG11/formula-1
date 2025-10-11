@@ -15,6 +15,7 @@ import useGetData from "@/hooks/useGetData";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import type { RaceResultApiResponse } from "@/lib/types";
+import { Link } from "react-router-dom";
 
 interface RaceResultProps {
   race: string;
@@ -75,7 +76,9 @@ export default function RaceResult({ race, isLastRace }: RaceResultProps) {
                     {result.position}
                   </TableCell>
                   <TableCell className="text-left w-[20%]">
-                    {result.driver.name} {result.driver.surname}
+                    <Link to={`/drivers/${result.driver.driverId}`}>
+                      {result.driver.name} {result.driver.surname}
+                    </Link>
                   </TableCell>
                   <TableCell className="text-center">
                     {result.driver.number}
