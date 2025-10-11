@@ -16,7 +16,7 @@ export interface Team {
   teamNationality: string;
   firstAppeareance: number;
   constructorsChampionships: number;
-  driversChampionships: 8;
+  driversChampionships: number;
   url: string;
 }
 
@@ -63,6 +63,7 @@ export interface ChampionshipStandingItem {
   points: number;
   driver: Driver;
   team: Team;
+  teamId: string;
   driverId?: string;
 }
 
@@ -95,6 +96,7 @@ export interface ConstructorsChampionshipApiResponse {
   constructors_championship: {
     position: number;
     points: number;
+    teamId: string;
     team: Team;
   }[];
 }
@@ -102,6 +104,13 @@ export interface ConstructorsChampionshipApiResponse {
 export interface CurrentDriversInfoApiResponse {
   season: number;
   drivers: Driver[];
+}
+
+export interface TeamInfoApiResponse {
+  team: Team;
+  drivers: {
+    driver: Driver;
+  }[];
 }
 
 export interface DriverInfoApiResponse {

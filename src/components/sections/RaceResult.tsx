@@ -15,7 +15,8 @@ import useGetData from "@/hooks/useGetData";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import type { RaceResultApiResponse } from "@/lib/types";
-import { Link } from "react-router-dom";
+
+import NameLink from "../shared/NameLink";
 
 interface RaceResultProps {
   race: string;
@@ -76,17 +77,19 @@ export default function RaceResult({ race, isLastRace }: RaceResultProps) {
                     {result.position}
                   </TableCell>
                   <TableCell className="text-left w-[20%]">
-                    <Link to={`/drivers/${result.driver.driverId}`}>
+                    <NameLink link={`/drivers/${result.driver.driverId}`}>
                       {result.driver.name} {result.driver.surname}
-                    </Link>
+                    </NameLink>
                   </TableCell>
                   <TableCell className="text-center">
                     {result.driver.number}
                   </TableCell>
                   <TableCell className="text-left  w-[20%]">
-                    {result.team.teamName
-                      .replace(/\b(Formula 1 Team|F1 Team)\b/g, "")
-                      .trim()}
+                    <NameLink link={`/teams/${result.team.teamId}`}>
+                      {result.team.teamName
+                        .replace(/\b(Formula 1 Team|F1 Team)\b/g, "")
+                        .trim()}
+                    </NameLink>
                   </TableCell>
                   <TableCell className="text-center">{result.points}</TableCell>
                 </TableRow>

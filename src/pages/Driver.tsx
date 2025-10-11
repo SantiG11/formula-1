@@ -1,7 +1,8 @@
+import NameLink from "@/components/shared/NameLink";
 import SectionContainer from "@/components/shared/SectionContainer";
 import SectionTitle from "@/components/shared/SectionTitle";
 import useGetData from "@/hooks/useGetData";
-import type { Driver, DriverInfoApiResponse } from "@/lib/types";
+import type { DriverInfoApiResponse } from "@/lib/types";
 import { getAssetUrl } from "@/utils/getImage";
 import { useParams } from "react-router-dom";
 
@@ -40,7 +41,13 @@ export default function DriverPage() {
           />
         </div>
         <div className="flex flex-col gap-5 justify-start p-2">
-          <p>Team: {driverData?.team.teamName}</p>
+          <p>
+            {" "}
+            Team:
+            <NameLink link={`/teams/${driverData?.team.teamId}`}>
+              {driverData?.team.teamName}
+            </NameLink>
+          </p>
           <p>Born in: {driverData?.driver.birthday}</p>
           <p>Number: {driverData?.driver.number}</p>
           <p>Country: {driverData?.driver.nationality}</p>

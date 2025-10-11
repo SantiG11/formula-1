@@ -13,7 +13,8 @@ import SectionTitle from "../shared/SectionTitle";
 import useGetData from "@/hooks/useGetData";
 import { Skeleton } from "../ui/skeleton";
 import type { DriversChampionshipApiResponse } from "@/lib/types";
-import { Link } from "react-router-dom";
+
+import NameLink from "../shared/NameLink";
 
 export default function DriverStandings() {
   const {
@@ -56,17 +57,19 @@ export default function DriverStandings() {
                     {driverData.position}
                   </TableCell>
                   <TableCell className="text-left  w-[20%]">
-                    <Link to={`/drivers/${driverData.driverId}`}>
+                    <NameLink link={`/drivers/${driverData.driverId}`}>
                       {driverData.driver.name} {driverData.driver.surname}
-                    </Link>
+                    </NameLink>
                   </TableCell>
                   <TableCell className="text-center">
                     {driverData.driver.number}
                   </TableCell>
                   <TableCell className="text-left  w-[20%]">
-                    {driverData.team.teamName
-                      .replace(/\b(Formula 1 Team|F1 Team)\b/g, "")
-                      .trim()}
+                    <NameLink link={`/teams/${driverData.teamId}`}>
+                      {driverData.team.teamName
+                        .replace(/\b(Formula 1 Team|F1 Team)\b/g, "")
+                        .trim()}
+                    </NameLink>
                   </TableCell>
                   <TableCell className="text-center">
                     {driverData.points}

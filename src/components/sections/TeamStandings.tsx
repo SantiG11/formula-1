@@ -14,6 +14,7 @@ import useGetData from "@/hooks/useGetData";
 import { Skeleton } from "../ui/skeleton";
 
 import type { ConstructorsChampionshipApiResponse } from "@/lib/types";
+import NameLink from "../shared/NameLink";
 
 export default function TeamStandings() {
   const {
@@ -54,9 +55,11 @@ export default function TeamStandings() {
                     {teamData.position}
                   </TableCell>
                   <TableCell className="text-center ">
-                    {teamData.team.teamName
-                      .replace(/\b(Formula 1 Team|F1 Team)\b/g, "")
-                      .trim()}
+                    <NameLink link={`/teams/${teamData.teamId}`}>
+                      {teamData.team.teamName
+                        .replace(/\b(Formula 1 Team|F1 Team)\b/g, "")
+                        .trim()}
+                    </NameLink>
                   </TableCell>
                   <TableCell className="text-center">
                     {teamData.points}

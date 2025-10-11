@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from "../ui/card";
 import { getAssetUrl } from "@/utils/getImage";
+import { Link } from "react-router-dom";
 
 export default function CircuitInfoCard(circuit: Circuit) {
   const assetUrl = getAssetUrl({
@@ -17,14 +18,18 @@ export default function CircuitInfoCard(circuit: Circuit) {
   });
 
   if (!assetUrl) {
-    return null; // Skip rendering this card
+    return null;
   }
   console.log(assetUrl);
   if (assetUrl) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>{circuit.circuitName}</CardTitle>
+          <CardTitle>
+            <Link to={`/circuits/${circuit.circuitId}`}>
+              {circuit.circuitName}
+            </Link>
+          </CardTitle>
         </CardHeader>
         <CardContent className=" border-2 border-accent min-h-[200px] flex justify-center items-center">
           <img

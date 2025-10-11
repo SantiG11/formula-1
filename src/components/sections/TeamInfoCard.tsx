@@ -9,6 +9,7 @@ import {
 } from "../ui/card";
 
 import { getAssetUrl } from "@/utils/getImage";
+import { Link } from "react-router-dom";
 
 export default function TeamInfoCard(team: Team) {
   const assetUrl = getAssetUrl({
@@ -20,7 +21,9 @@ export default function TeamInfoCard(team: Team) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{team.teamName}</CardTitle>
+        <CardTitle>
+          <Link to={`/teams/${team.teamId}`}>{team.teamName}</Link>
+        </CardTitle>
       </CardHeader>
       <CardContent className=" border-2 border-accent">
         <img
