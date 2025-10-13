@@ -5,8 +5,11 @@ import SectionTitle from "@/components/shared/SectionTitle";
 import { Calendar } from "@/components/ui/calendar";
 import useGetData from "@/hooks/useGetData";
 import type { CalendarInfoApiResponse } from "@/lib/types";
+import { useNavigate } from "react-router-dom";
 
 export default function CalendarPage() {
+  const navigate = useNavigate();
+
   const {
     data: raceSchedule,
     loading,
@@ -21,6 +24,10 @@ export default function CalendarPage() {
       return `${y}-${m}-${dd}`;
     };
 
+    function navigateHandler(round: number) {
+      navigate(`/calendar/${round}`);
+    }
+
     const raceDates =
       raceSchedule?.races?.map((r) => r.schedule.race.date) ?? [];
     const raceDateSet = new Set(raceDates);
@@ -34,6 +41,7 @@ export default function CalendarPage() {
 
       if (race) {
         console.log(`Redirigiendo a la carrera: ${race.raceName}`);
+        navigateHandler(race.round);
       }
     } else {
       console.log("No es una fecha de carrera.");

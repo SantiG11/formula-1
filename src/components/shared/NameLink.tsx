@@ -8,7 +8,10 @@ export type SectionTitleProps = {
 
 export default function NameLink({ link, children }: SectionTitleProps) {
   return (
-    <Button variant="link" className="cursor-pointer text-white p-2">
+    <Button
+      variant="link"
+      className="cursor-pointer text-white p-2 text-wrap whitespace-break-spaces text-start"
+    >
       <Link to={link}>{children}</Link>
     </Button>
   );

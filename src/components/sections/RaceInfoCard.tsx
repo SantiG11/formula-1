@@ -7,12 +7,15 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
+import NameLink from "../shared/NameLink";
 
 export default function RaceInfoCard(race: RaceInfo) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{race.raceName}</CardTitle>
+        <CardTitle className="text-wrap">
+          <NameLink link={`${race.round}`}>{race.raceName}</NameLink>
+        </CardTitle>
       </CardHeader>
       <CardContent className=" border-2 border-accent">
         <CardDescription className="flex flex-wrap justify-between gap-2">

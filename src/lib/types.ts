@@ -118,6 +118,11 @@ export interface DriverInfoApiResponse {
   team: Team;
 }
 
+export interface RaceInfoApiResponse {
+  round: number;
+  race: RaceInfo[];
+}
+
 export interface CurrentTeamsInfoApiResponse {
   season: number;
   teams: Team[];
