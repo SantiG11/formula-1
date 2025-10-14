@@ -1,12 +1,15 @@
+import CountdownTimer from "@/components/shared/CountdownTimer";
 import NameLink from "@/components/shared/NameLink";
 import SectionContainer from "@/components/shared/SectionContainer";
 import SectionTitle from "@/components/shared/SectionTitle";
+import { Button } from "@/components/ui/button";
 import useGetData from "@/hooks/useGetData";
 import type { RaceInfoApiResponse } from "@/lib/types";
 import { getAssetUrl } from "@/utils/getImage";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function RacePage() {
+  const navigate = useNavigate();
   const { raceId } = useParams();
 
   const {
@@ -22,6 +25,14 @@ export default function RacePage() {
 
   const raceInfo = raceData?.race[0];
 
+  const handlePrevRace = () => {
+    navigate(`/calendar/${raceInfo && raceInfo?.round - 1}`);
+  };
+
+  const handleNextRace = () => {
+    navigate(`/calendar/${raceInfo && raceInfo?.round + 1}`);
+  };
+
   const assetUrl = getAssetUrl({
     type: "Circuits",
     id: raceInfo?.circuit.circuitId,
@@ -35,11 +46,14 @@ export default function RacePage() {
     <SectionContainer>
       <SectionTitle>{raceInfo?.raceName}</SectionTitle>
 
+      {raceDate && raceDate > today && (
+        <CountdownTimer round={raceInfo?.round} />
+      )}
       <div className="flex gap-4 bg-secondary border-2 rounded-2xl overflow-hidden py-5">
         <div>
           <img
             src={assetUrl || ""}
-            alt={raceInfo?.raceId}
+            alt={raceInfo?.circuit.circuitId}
             className="flex justify-center items-center border-2 border-accent aspect-auto h-[300px]"
           />
         </div>
@@ -48,21 +62,39 @@ export default function RacePage() {
           <p>Date: {raceInfo?.schedule.race.date}</p>
 
           <p>Laps: {raceInfo?.laps}</p>
+
+          <p>
+            Location: {raceInfo?.circuit.city}, {raceInfo?.circuit.country}{" "}
+          </p>
+
           <p>
             Circuit:
             <NameLink link={`/circuits/${raceInfo?.circuit.circuitId}`}>
               {raceInfo?.circuit.circuitName}
             </NameLink>
           </p>
-          <p>
-            Location: {raceInfo?.circuit.city} {raceInfo?.circuit.country}{" "}
-          </p>
           {raceDate && raceDate < today && (
             <p>
-              <NameLink link="">See result</NameLink>
+              <NameLink link={`/${raceInfo?.round}`}>See result</NameLink>
             </p>
           )}
         </div>
+      </div>
+      <div className="flex justify-between">
+        <Button
+          variant="outline"
+          onClick={handlePrevRace}
+          disabled={raceInfo && raceInfo?.round <= 1}
+        >
+          Prev Race
+        </Button>
+        <Button
+          variant="outline"
+          onClick={handleNextRace}
+          disabled={raceInfo && raceInfo?.round >= 24}
+        >
+          Next Race
+        </Button>
       </div>
     </SectionContainer>
   );

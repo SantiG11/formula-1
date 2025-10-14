@@ -5,15 +5,21 @@ import useGetData from "@/hooks/useGetData";
 import SectionContainer from "../shared/SectionContainer";
 import { Button } from "../ui/button";
 
-export default function RaceResultContainer() {
+export type RaceResultProps = {
+  round?: number | null;
+};
+
+export default function RaceResultContainer({ round }: RaceResultProps) {
+  const [currentRound, setCurrentRound] = useState<number | null>(
+    round ? round : null,
+  );
+
   const { data: lastRaceData } =
     useGetData<RaceResultApiResponse>("/current/last/race");
   const lastRoundNumber = lastRaceData?.races?.round;
 
-  const [currentRound, setCurrentRound] = useState<number | null>(null);
-
   useEffect(() => {
-    if (lastRoundNumber) {
+    if (lastRoundNumber && !round) {
       setCurrentRound(lastRoundNumber);
     }
   }, [lastRoundNumber]);

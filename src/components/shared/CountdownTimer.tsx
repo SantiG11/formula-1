@@ -10,7 +10,11 @@ type TimeLeft = {
   seconds: number;
 };
 
-export default function CountdownTimer() {
+export type RaceProps = {
+  round?: number | null;
+};
+
+export default function CountdownTimer({ round }: RaceProps) {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({
     days: 0,
     hours: 0,
@@ -18,8 +22,9 @@ export default function CountdownTimer() {
     seconds: 0,
   });
 
-  const { data, loading, error } =
-    useGetData<NextRaceApiResponse>("/current/next");
+  const { data, loading, error } = useGetData<NextRaceApiResponse>(
+    round ? `/2025/${round}` : "/current/next",
+  );
 
   const nextRaceIso = data
     ? (() => {

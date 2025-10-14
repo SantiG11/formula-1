@@ -51,13 +51,6 @@ export interface RaceSchedule {
   time: string;
 }
 
-export interface RaceResultItem {
-  position: number;
-  points: number;
-  driver: Driver;
-  team: Team;
-}
-
 export interface ChampionshipStandingItem {
   position: number;
   points: number;
@@ -76,6 +69,13 @@ export interface NextRaceApiResponse {
   }[];
 }
 
+export interface RaceResultItem {
+  position: number;
+  points: number;
+  driver: Driver;
+  team: Team;
+}
+
 export interface RaceResultApiResponse {
   season: number;
   races?: {
@@ -83,6 +83,7 @@ export interface RaceResultApiResponse {
     raceName?: string;
     date: string;
     results: RaceResultItem[];
+    circuit: Circuit;
   };
 }
 
