@@ -12,6 +12,8 @@ import TeamPage from "./pages/Team";
 import CircuitPage from "./pages/Circuit";
 import RacePage from "./pages/Race";
 import ResultPage from "./pages/Result";
+import TeamStandings from "./pages/TeamStandings";
+import DriverStandings from "./pages/DriverStandings";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,8 @@ const router = createBrowserRouter([
       { path: "/calendar", element: <CalendarPage /> },
       { path: "/calendar/:raceId", element: <RacePage /> },
       { path: "/:resultId", element: <ResultPage /> },
+      { path: "/teamStandings", element: <TeamStandings /> },
+      { path: "/driverStandings", element: <DriverStandings /> },
     ],
   },
 ]);

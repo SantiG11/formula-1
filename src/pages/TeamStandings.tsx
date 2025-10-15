@@ -1,3 +1,8 @@
+import NameLink from "@/components/shared/NameLink";
+import SectionContainer from "@/components/shared/SectionContainer";
+import SectionTitle from "@/components/shared/SectionTitle";
+import TableContainer from "@/components/shared/TableContainer";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
   TableBody,
@@ -7,14 +12,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import SectionContainer from "../shared/SectionContainer";
-import SectionTitle from "../shared/SectionTitle";
-import TableContainer from "../shared/TableContainer";
 import useGetData from "@/hooks/useGetData";
-import { Skeleton } from "../ui/skeleton";
 
 import type { ConstructorsChampionshipApiResponse } from "@/lib/types";
-import NameLink from "../shared/NameLink";
 
 export default function TeamStandings() {
   const {
@@ -39,7 +39,7 @@ export default function TeamStandings() {
       <SectionTitle>Constructors Championship</SectionTitle>
 
       <TableContainer>
-        <Table className="text-xs w-[100%]">
+        <Table className="text-xs w-[100%] ">
           <TableHeader>
             <TableRow>
               <TableHead className="text-center">Pos</TableHead>

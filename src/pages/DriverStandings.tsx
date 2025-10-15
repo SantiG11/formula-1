@@ -7,14 +7,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import SectionContainer from "../shared/SectionContainer";
-import TableContainer from "../shared/TableContainer";
-import SectionTitle from "../shared/SectionTitle";
+import SectionContainer from "../components/shared/SectionContainer";
+import TableContainer from "../components/shared/TableContainer";
+import SectionTitle from "../components/shared/SectionTitle";
 import useGetData from "@/hooks/useGetData";
-import { Skeleton } from "../ui/skeleton";
+import { Skeleton } from "../components/ui/skeleton";
 import type { DriversChampionshipApiResponse } from "@/lib/types";
 
-import NameLink from "../shared/NameLink";
+import NameLink from "../components/shared/NameLink";
 
 export default function DriverStandings() {
   const {
