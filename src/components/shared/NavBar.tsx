@@ -31,7 +31,7 @@ export default function NavBar() {
 
         <NavigationMenuItem>
           <NavigationMenuTrigger>Standings</NavigationMenuTrigger>
-          <NavigationMenuContent>
+          <NavigationMenuContent className="z-10 left-[-40px] lg:left-0">
             <ul className="grid w-[300px] gap-4 ">
               <li>
                 <NavigationMenuLink>

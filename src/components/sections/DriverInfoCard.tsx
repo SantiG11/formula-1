@@ -8,7 +8,8 @@ import {
   CardTitle,
 } from "../ui/card";
 import { getAssetUrl } from "@/utils/getImage";
-import { Link } from "react-router-dom";
+
+import NameLink from "../shared/NameLink";
 
 export default function DriverInfoCard(driver: Driver) {
   const assetUrl = getAssetUrl({
@@ -22,9 +23,9 @@ export default function DriverInfoCard(driver: Driver) {
       <Card>
         <CardHeader>
           <CardTitle>
-            <Link to={`/drivers/${driver.driverId}`}>
+            <NameLink link={`/drivers/${driver.driverId}`}>
               {driver.name} {driver.surname}
-            </Link>
+            </NameLink>
           </CardTitle>
         </CardHeader>
         <CardContent className=" border-2 border-accent">
