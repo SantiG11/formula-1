@@ -20,31 +20,22 @@ export default function DriverInfoCard(driver: Driver) {
 
   if (assetUrl) {
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle>
-            <NameLink link={`/drivers/${driver.driverId}`}>
+      <NameLink link={`/drivers/${driver.driverId}`}>
+        <Card>
+          <CardHeader>
+            <CardTitle>
               {driver.name} {driver.surname}
-            </NameLink>
-          </CardTitle>
-        </CardHeader>
-        <CardContent className=" border-2 border-accent">
-          <img
-            src={assetUrl || ""}
-            alt={driver.driverId}
-            className="flex justify-center items-center border-2 border-accent min-h-[200px]"
-          />
-        </CardContent>
-        <CardFooter>
-          <CardDescription className="flex flex-wrap justify-between gap-2">
-            <p>Country: {driver.nationality}</p>
-            <p>Team: {driver.teamId}</p>
-            <p>Born in: {driver.birthday}</p>
-            <p>Number: {driver.number}</p>
-            <p>id: {driver.driverId}</p>
-          </CardDescription>
-        </CardFooter>
-      </Card>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className=" ">
+            <img
+              src={assetUrl || ""}
+              alt={driver.driverId}
+              className="flex justify-center items-center  min-h-[200px]"
+            />
+          </CardContent>
+        </Card>
+      </NameLink>
     );
   }
 }

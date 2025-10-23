@@ -36,7 +36,7 @@ export default function RaceResultContainer({ round }: RaceResultProps) {
   };
 
   return (
-    <SectionContainer>
+    <SectionContainer classes="py-4">
       <RaceResult
         race={raceEndpoint}
         key={raceEndpoint}

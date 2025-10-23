@@ -26,7 +26,7 @@ export default function Layout() {
       </Header>
 
       <main className="p-4 overflow-y-auto flex justify-center">
-        <div className="w-full max-w-[800px] flex flex-col gap-5">
+        <div className="w-full max-w-[800px] flex flex-col gap-5 items-center sm:items-stretch ">
           <Outlet />
         </div>
       </main>

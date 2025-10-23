@@ -61,8 +61,9 @@ export interface ChampionshipStandingItem {
 }
 
 export interface NextRaceApiResponse {
-  race?: {
-    raceName?: string;
+  round: number;
+  race: {
+    raceName: string;
     schedule: {
       race: RaceSchedule;
     };

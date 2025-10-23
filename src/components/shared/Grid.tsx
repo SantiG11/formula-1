@@ -1,10 +1,18 @@
+import type { ReactNode } from "react";
+
 export type GridProps = {
-  children: React.ReactNode;
+  children: ReactNode;
+  cardMinW?: string;
 };
 
-export default function Grid({ children }: GridProps) {
+export default function Grid({ children, cardMinW = "250px" }: GridProps) {
   return (
-    <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-5">
+    <div
+      className="grid gap-5 my-4"
+      style={{
+        gridTemplateColumns: `repeat(auto-fit, minmax(${cardMinW}, 1fr))`,
+      }}
+    >
       {children}
     </div>
   );

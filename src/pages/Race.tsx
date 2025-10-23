@@ -4,6 +4,7 @@ import SectionContainer from "@/components/shared/SectionContainer";
 import SectionTitle from "@/components/shared/SectionTitle";
 import { Button } from "@/components/ui/button";
 import useGetData from "@/hooks/useGetData";
+import formatDate from "@/lib/formatDate";
 import type { RaceInfoApiResponse } from "@/lib/types";
 import { getAssetUrl } from "@/utils/getImage";
 import { useNavigate, useParams } from "react-router-dom";
@@ -24,6 +25,8 @@ export default function RacePage() {
   const raceDate = new Date(raceData?.race[0].schedule.race.date || "");
 
   const raceInfo = raceData?.race[0];
+
+  const date = raceInfo ? formatDate(raceInfo.schedule.race.date) : undefined;
 
   const handlePrevRace = () => {
     navigate(`/calendar/${raceInfo && raceInfo?.round - 1}`);
@@ -58,8 +61,8 @@ export default function RacePage() {
           />
         </div>
         <div className="flex flex-col gap-5 justify-start p-2">
-          <p>Round: {raceInfo?.round}</p>
-          <p>Date: {raceInfo?.schedule.race.date}</p>
+          <p className="font-bold text-mute">Round {raceInfo?.round}</p>
+          <p>Date: {date ?? raceInfo?.schedule.race.date}</p>
 
           <p>Laps: {raceInfo?.laps}</p>
 
@@ -70,6 +73,7 @@ export default function RacePage() {
           <p>
             Circuit:
             <NameLink link={`/circuits/${raceInfo?.circuit.circuitId}`}>
+              {" "}
               {raceInfo?.circuit.circuitName}
             </NameLink>
           </p>

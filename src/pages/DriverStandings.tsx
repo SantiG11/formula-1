@@ -41,7 +41,7 @@ export default function DriverStandings() {
       <TableContainer>
         <Table className="text-xs">
           <TableHeader>
-            <TableRow>
+            <TableRow className="hover:bg-transparent">
               <TableHead className="text-center">Pos</TableHead>
               <TableHead className="text-center">Driver</TableHead>
               <TableHead className="text-center">Number</TableHead>

@@ -76,15 +76,17 @@ export default function CalendarPage() {
   return (
     <SectionContainer>
       <SectionTitle>Calendar</SectionTitle>
+
       <Calendar
         mode="multiple"
         selected={dates}
         onDayClick={handleDayClick}
         onSelect={() => {}}
-        className="rounded-lg border self-center  "
+        className="rounded-lg border self-center w-90 md:w-105"
         fixedWeeks
         showOutsideDays={false}
       />
+
       <Grid>
         {raceSchedule?.races?.map((race) => {
           return <RaceInfoCard {...race} key={race.raceId} />;

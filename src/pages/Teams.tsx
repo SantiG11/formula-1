@@ -19,9 +19,9 @@ export default function TeamsPage() {
 
   return (
     <SectionContainer>
-      <SectionTitle>Teams info page</SectionTitle>
+      <SectionTitle>Teams </SectionTitle>
 
-      <Grid>
+      <Grid cardMinW="300px">
         {teamsData?.teams.map((team) => {
           return <TeamInfoCard {...team} key={team.teamId} />;
         })}

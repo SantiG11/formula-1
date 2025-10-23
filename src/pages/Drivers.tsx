@@ -17,8 +17,8 @@ export default function DriversPage() {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <SectionContainer>
-      <SectionTitle>Drivers info page</SectionTitle>
+    <SectionContainer classes="max-w-[90%] sm:max-w-none justify-center">
+      <SectionTitle>Drivers </SectionTitle>
 
       <Grid>
         {driversData?.drivers.map((driver) => {

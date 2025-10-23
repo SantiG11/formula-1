@@ -61,7 +61,7 @@ export default function RaceResult({ race, isLastRace }: RaceResultProps) {
             {raceData?.races?.raceName ?? "Race Name"}
           </TableCaption>
           <TableHeader>
-            <TableRow>
+            <TableRow className="hover:bg-transparent">
               <TableHead className="text-center">Pos</TableHead>
               <TableHead className="text-center">Driver</TableHead>
               <TableHead className="text-center">Number</TableHead>
@@ -76,7 +76,7 @@ export default function RaceResult({ race, isLastRace }: RaceResultProps) {
                   <TableCell className="text-center">
                     {result.position}
                   </TableCell>
-                  <TableCell className="text-left w-[20%]">
+                  <TableCell className="text-center text-pretty md:text-left w-[20%]">
                     <NameLink link={`/drivers/${result.driver.driverId}`}>
                       {result.driver.name} {result.driver.surname}
                     </NameLink>
@@ -84,7 +84,7 @@ export default function RaceResult({ race, isLastRace }: RaceResultProps) {
                   <TableCell className="text-center">
                     {result.driver.number}
                   </TableCell>
-                  <TableCell className="text-left  w-[20%]">
+                  <TableCell className="text-center text-pretty md:text-leftw-[20%]">
                     <NameLink link={`/teams/${result.team.teamId}`}>
                       {result.team.teamName
                         .replace(/\b(Formula 1 Team|F1 Team)\b/g, "")

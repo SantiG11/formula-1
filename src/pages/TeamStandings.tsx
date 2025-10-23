@@ -41,7 +41,7 @@ export default function TeamStandings() {
       <TableContainer>
         <Table className="text-xs w-[100%] ">
           <TableHeader>
-            <TableRow>
+            <TableRow className="hover:bg-transparent">
               <TableHead className="text-center">Pos</TableHead>
               <TableHead className="text-center">Team</TableHead>
               <TableHead className="text-center">Pts</TableHead>

@@ -19,7 +19,7 @@ export default function CircuitsPage() {
 
   return (
     <SectionContainer>
-      <SectionTitle>Circuits info page</SectionTitle>
+      <SectionTitle>Circuits </SectionTitle>
 
       <Grid>
         {circuitsData?.circuits.map((circuit) => {
