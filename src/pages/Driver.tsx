@@ -2,6 +2,7 @@ import NameLink from "@/components/shared/NameLink";
 import SectionContainer from "@/components/shared/SectionContainer";
 import SectionTitle from "@/components/shared/SectionTitle";
 import useGetData from "@/hooks/useGetData";
+
 import type { DriverInfoApiResponse } from "@/lib/types";
 import { getAssetUrl } from "@/utils/getImage";
 import { useParams } from "react-router-dom";
@@ -21,8 +22,6 @@ export default function DriverPage() {
     extension: "avif",
   });
 
-  console.log(driverData);
-
   if (loading) return <p>Loading driver details...</p>;
   if (error) return <p>Error: {error}</p>;
 
@@ -32,25 +31,40 @@ export default function DriverPage() {
         {driverData?.driver.name} {driverData?.driver.surname}
       </SectionTitle>
 
-      <div className="flex gap-4 bg-secondary border-2 rounded-2xl overflow-hidden py-5">
-        <div>
+      <div className="flex flex-col md:flex-row gap-4 border-2 border-secondary rounded-2xl py-5">
+        <div className="flex justify-center items-center">
           <img
             src={assetUrl || ""}
             alt={driverData?.driver.driverId}
-            className="flex justify-center items-center border-2 border-accent aspect-auto h-[300px]"
+            className="object-contain max-h-[300px] w-full md:w-auto"
           />
         </div>
+
         <div className="flex flex-col gap-5 justify-start p-2">
+          <div className="flex px-4 py-1 bg-red-500/80 w-fit rounded-3xl border-1 border-red-700">
+            <p className="font-bold tracking-wider text-sm">
+              {driverData?.driver.shortName}
+            </p>
+          </div>
+
           <p>
-            {" "}
-            Team:
+            Number:{" "}
+            <label className="font-bold">{driverData?.driver.number}</label>
+          </p>
+
+          <p>
+            Team:{" "}
             <NameLink link={`/teams/${driverData?.team.teamId}`}>
               {driverData?.team.teamName}
             </NameLink>
           </p>
-          <p>Born in: {driverData?.driver.birthday}</p>
-          <p>Number: {driverData?.driver.number}</p>
-          <p>Country: {driverData?.driver.nationality}</p>
+
+          <p>
+            Country:{" "}
+            <label className="font-bold">
+              {driverData?.driver.nationality}
+            </label>
+          </p>
         </div>
       </div>
     </SectionContainer>

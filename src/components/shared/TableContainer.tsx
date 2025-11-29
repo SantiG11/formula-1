@@ -4,6 +4,8 @@ export type TableContainerProps = {
 
 export default function TableContainer({ children }: TableContainerProps) {
   return (
-    <div className="border rounded-xl overflow-hidden w-full ">{children}</div>
+    <div className="border rounded-xl overflow-hidden w-full my-4">
+      {children}
+    </div>
   );
 }
