@@ -24,8 +24,6 @@ export default function CircuitPage() {
     extension: "avif",
   });
 
-  console.log(circuit);
-
   if (loading) return <p>Loading circuit details...</p>;
   if (error) return <p>Error: {error}</p>;
 
@@ -33,20 +31,34 @@ export default function CircuitPage() {
     <SectionContainer>
       <SectionTitle>{circuit?.circuitName}</SectionTitle>
 
-      <div className="flex gap-4 bg-secondary border-2 rounded-2xl overflow-hidden py-5">
-        <div>
+      <div className="flex flex-col md:flex-row gap-4 border-2 bg-secondary border-secondary rounded-2xl py-5 mb-2">
+        <div className="flex  justify-center items-center">
           <img
             src={assetUrl || ""}
             alt={circuit?.circuitId}
-            className="flex justify-center items-center border-2 border-accent aspect-auto h-[300px]"
+            className="object-contain  border-2 border-accent aspect-auto h-full"
           />
         </div>
         <div className="flex flex-col gap-5 justify-start p-2">
-          <p>Lenght: {circuit?.circuitLength}</p>
-          <p>Country: {circuit?.country}</p>
-          <p>City: {circuit?.city}</p>
-          <p>Record: {circuit?.lapRecord}</p>
-          <p>First participation: {circuit?.firstParticipationYear}</p>
+          <p>
+            Lenght:{" "}
+            <label className="font-bold">{circuit?.circuitLength}</label>
+          </p>
+          <p>
+            Country: <label className="font-bold">{circuit?.country}</label>
+          </p>
+          <p>
+            City: <label className="font-bold">{circuit?.city}</label>
+          </p>
+          <p>
+            Record: <label className="font-bold">{circuit?.lapRecord}</label>
+          </p>
+          <p>
+            First participation:{" "}
+            <label className="font-bold">
+              {circuit?.firstParticipationYear}
+            </label>
+          </p>
         </div>
       </div>
     </SectionContainer>

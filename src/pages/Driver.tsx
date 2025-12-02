@@ -31,7 +31,7 @@ export default function DriverPage() {
         {driverData?.driver.name} {driverData?.driver.surname}
       </SectionTitle>
 
-      <div className="flex flex-col md:flex-row gap-4 border-2 border-secondary rounded-2xl py-5">
+      <div className="flex flex-col md:flex-row gap-4 border-2 bg-secondary border-secondary rounded-2xl py-5">
         <div className="flex justify-center items-center">
           <img
             src={assetUrl || ""}

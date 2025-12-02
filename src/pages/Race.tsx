@@ -52,26 +52,37 @@ export default function RacePage() {
       {raceDate && raceDate > today && (
         <CountdownTimer round={raceInfo?.round} />
       )}
-      <div className="flex gap-4 bg-secondary border-2 rounded-2xl overflow-hidden py-5">
-        <div>
+      <div className="flex flex-col md:flex-row gap-4 border-2 bg-secondary border-secondary rounded-2xl py-5">
+        <div className="flex justify-center items-center min-h-[200px]">
           <img
             src={assetUrl || ""}
             alt={raceInfo?.circuit.circuitId}
-            className="flex justify-center items-center border-2 border-accent aspect-auto h-[300px]"
+            className="object-contain max-h-[300px] w-full md:w-auto"
           />
         </div>
         <div className="flex flex-col gap-5 justify-start p-2">
           <p className="font-bold text-mute">Round {raceInfo?.round}</p>
-          <p>Date: {date ?? raceInfo?.schedule.race.date}</p>
-
-          <p>Laps: {raceInfo?.laps}</p>
+          <p>
+            Date:{" "}
+            <label className="font-bold">
+              {date ?? raceInfo?.schedule.race.date}
+            </label>
+          </p>
 
           <p>
-            Location: {raceInfo?.circuit.city}, {raceInfo?.circuit.country}{" "}
+            Laps: <label className="font-bold">{raceInfo?.laps}</label>
+          </p>
+
+          <p>
+            Location:{" "}
+            <label className="font-bold">
+              {raceInfo?.circuit.city}, {raceInfo?.circuit.country}
+            </label>{" "}
           </p>
 
           <p>
             Circuit:
+            <label className="font-bold"></label>
             <NameLink link={`/circuits/${raceInfo?.circuit.circuitId}`}>
               {" "}
               {raceInfo?.circuit.circuitName}
