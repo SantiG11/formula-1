@@ -17,6 +17,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import type { RaceResultApiResponse } from "@/lib/types";
 
 import NameLink from "../shared/NameLink";
+import useIsMobile from "@/hooks/useIsMobile";
 
 interface RaceResultProps {
   race: string;
@@ -24,6 +25,8 @@ interface RaceResultProps {
 }
 
 export default function RaceResult({ race, isLastRace }: RaceResultProps) {
+  const isMobile = useIsMobile();
+
   const {
     data: raceData,
     loading,
@@ -78,13 +81,17 @@ export default function RaceResult({ race, isLastRace }: RaceResultProps) {
                   </TableCell>
                   <TableCell className="text-center text-pretty md:text-left w-[20%]">
                     <NameLink link={`/drivers/${result.driver.driverId}`}>
-                      {result.driver.name} {result.driver.surname}
+                      {isMobile
+                        ? result.driver.shortName
+                        : `${result.driver.name} ${result.driver.surname}`}
                     </NameLink>
                   </TableCell>
                   <TableCell className="text-center">
                     {result.driver.number}
                   </TableCell>
-                  <TableCell className="text-center text-pretty md:text-leftw-[20%]">
+                  <TableCell
+                    className={`text-center text-pretty md:text-leftw-[20%]`}
+                  >
                     <NameLink link={`/teams/${result.team.teamId}`}>
                       {result.team.teamName
                         .replace(/\b(Formula 1 Team|F1 Team)\b/g, "")

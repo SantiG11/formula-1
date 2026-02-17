@@ -14,7 +14,7 @@ export default function NameLink({
   return (
     <Link
       to={link}
-      className={`${classes && classes} text-pretty   leading-normal hover:underline font-semibold `}
+      className={`${classes && classes} text-pretty   leading-normal hover:underline font-bold `}
     >
       {children}
     </Link>

@@ -15,8 +15,11 @@ import { Skeleton } from "../components/ui/skeleton";
 import type { DriversChampionshipApiResponse } from "@/lib/types";
 
 import NameLink from "../components/shared/NameLink";
+import useIsMobile from "@/hooks/useIsMobile";
 
 export default function DriverStandings() {
+  const isMobile = useIsMobile();
+
   const {
     data: driversData,
     loading,
@@ -56,15 +59,17 @@ export default function DriverStandings() {
                   <TableCell className="text-center">
                     {driverData.position}
                   </TableCell>
-                  <TableCell className="text-left  w-[20%]">
+                  <TableCell className={` text-center  w-[20%]`}>
                     <NameLink link={`/drivers/${driverData.driverId}`}>
-                      {driverData.driver.name} {driverData.driver.surname}
+                      {isMobile
+                        ? driverData.driver.shortName
+                        : `${driverData.driver.name} ${driverData.driver.surname}`}
                     </NameLink>
                   </TableCell>
                   <TableCell className="text-center">
                     {driverData.driver.number}
                   </TableCell>
-                  <TableCell className="text-left  w-[20%]">
+                  <TableCell className="text-center  w-[20%]">
                     <NameLink link={`/teams/${driverData.teamId}`}>
                       {driverData.team.teamName
                         .replace(/\b(Formula 1 Team|F1 Team)\b/g, "")

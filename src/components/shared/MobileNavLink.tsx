@@ -8,7 +8,10 @@ export default function MobileNavLink({
   onClick,
 }: MobileNavLinkProps) {
   return (
-    <li className="hover:bg-accent px-4 py-2 rounded-xl" onClick={onClick}>
+    <li
+      className="hover:bg-accent font-bold px-4 py-2 rounded-xl"
+      onClick={onClick}
+    >
       {children}
     </li>
   );

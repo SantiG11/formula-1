@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import NameLink from "../shared/NameLink";
+
 import { getAssetUrl } from "@/utils/getImage";
 import { Link } from "react-router-dom";
 import formatDate from "@/lib/formatDate";
