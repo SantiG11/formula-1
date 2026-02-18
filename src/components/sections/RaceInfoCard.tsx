@@ -10,7 +10,6 @@ import {
 
 import { getAssetUrl } from "@/utils/getImage";
 import { Link } from "react-router-dom";
-import formatDate from "@/lib/formatDate";
 
 export default function RaceInfoCard(race: RaceInfo) {
   const assetUrl = getAssetUrl({
@@ -19,11 +18,24 @@ export default function RaceInfoCard(race: RaceInfo) {
     extension: "avif",
   });
 
-  let date = formatDate(race.schedule.race.date);
-
   if (!assetUrl) {
     return null;
   }
+
+  const raceDate = race.schedule?.race?.date ?? null;
+  const raceTime = race.schedule?.race?.time ?? null;
+
+  const instant =
+    raceDate && raceTime ? new Date(`${raceDate}T${raceTime}`) : null;
+
+  const isValidInstant = instant && !Number.isNaN(instant.getTime());
+
+  const localDateTime = isValidInstant
+    ? new Intl.DateTimeFormat(undefined, {
+        month: "short",
+        day: "2-digit",
+      }).format(instant)
+    : "Date TBD";
 
   return (
     <Card className="group">
@@ -47,7 +59,7 @@ export default function RaceInfoCard(race: RaceInfo) {
         </CardContent>
         <CardFooter>
           <CardDescription className="flex flex-col gap-1 mt-2 justify-end">
-            <p> {date}</p>
+            <p>{localDateTime} </p>
             <p>
               {race.circuit.city}, {race.circuit.country}
             </p>

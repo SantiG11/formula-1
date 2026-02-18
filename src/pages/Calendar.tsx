@@ -5,6 +5,7 @@ import SectionTitle from "@/components/shared/SectionTitle";
 import { Calendar } from "@/components/ui/calendar";
 import useGetData from "@/hooks/useGetData";
 import type { CalendarInfoApiResponse } from "@/lib/types";
+import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function CalendarPage() {
@@ -14,46 +15,61 @@ export default function CalendarPage() {
     data: raceSchedule,
     loading,
     error,
-  } = useGetData<CalendarInfoApiResponse>("/2025");
+  } = useGetData<CalendarInfoApiResponse>("/2026");
 
-  const handleDayClick = (day: Date) => {
-    const toUTCYMD = (d: Date) => {
-      const y = d.getUTCFullYear();
-      const m = String(d.getUTCMonth() + 1).padStart(2, "0");
-      const dd = String(d.getUTCDate()).padStart(2, "0");
-      return `${y}-${m}-${dd}`;
-    };
-
-    function navigateHandler(round: number) {
-      navigate(`/calendar/${round}`);
-    }
-
-    const raceDates =
-      raceSchedule?.races?.map((r) => r.schedule.race.date) ?? [];
-    const raceDateSet = new Set(raceDates);
-
-    const dayYMD = toUTCYMD(day);
-
-    if (raceDateSet.has(dayYMD)) {
-      const race = raceSchedule?.races?.find(
-        (r) => r.schedule.race.date === dayYMD,
-      );
-
-      if (race) {
-        console.log(`Redirigiendo a la carrera: ${race.raceName}`);
-        navigateHandler(race.round);
-      }
-    } else {
-      console.log("No es una fecha de carrera.");
-    }
+  const toRaceInstant = (
+    date: string | null,
+    time: string | null,
+  ): Date | null => {
+    if (!date || !time) return null;
+    const iso = `${date}T${time}`; // valid ISO because time contains "Z"
+    const d = new Date(iso);
+    return Number.isNaN(d.getTime()) ? null : d;
   };
 
-  const dates =
-    raceSchedule?.races?.map((race) => {
-      const [year, month, day] = race.schedule.race.date.split("-").map(Number);
+  const toLocalYMD = (d: Date) => {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+    return `${y}-${m}-${dd}`;
+  };
 
-      return new Date(Date.UTC(year, month - 1, day + 1));
-    }) ?? [];
+  const { selectedDates, localDayToRound } = useMemo(() => {
+    const races = raceSchedule?.races ?? [];
+
+    const map = new Map<string, number>();
+    const dates: Date[] = [];
+
+    for (const r of races) {
+      const instant = toRaceInstant(r.schedule.race.date, r.schedule.race.time);
+      if (!instant) continue;
+
+      const localKey = toLocalYMD(instant);
+
+      const localMidnight = new Date(
+        instant.getFullYear(),
+        instant.getMonth(),
+        instant.getDate(),
+      );
+
+      dates.push(localMidnight);
+
+      if (!map.has(localKey)) map.set(localKey, r.round);
+    }
+
+    return { selectedDates: dates, localDayToRound: map };
+  }, [raceSchedule]);
+
+  const handleDayClick = (day: Date) => {
+    const clickedKey = toLocalYMD(day);
+    const round = localDayToRound.get(clickedKey);
+
+    if (round != null) {
+      navigate(`/calendar/${round}`);
+    } else {
+      console.log("It's not a race date.");
+    }
+  };
 
   if (loading) {
     return (
@@ -79,7 +95,7 @@ export default function CalendarPage() {
 
       <Calendar
         mode="multiple"
-        selected={dates}
+        selected={selectedDates}
         onDayClick={handleDayClick}
         onSelect={() => {}}
         className="rounded-lg border self-center w-90 md:w-105"

@@ -17,7 +17,7 @@ export default function RacePage() {
     data: raceData,
     loading,
     error,
-  } = useGetData<RaceInfoApiResponse>(`/2025/${raceId}`);
+  } = useGetData<RaceInfoApiResponse>(`/2026/${raceId}`);
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
