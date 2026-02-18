@@ -23,7 +23,7 @@ export default function CountdownTimer({ round }: RaceProps) {
   });
 
   const { data, loading, error } = useGetData<NextRaceApiResponse>(
-    round ? `/2025/${round}` : "/current/next",
+    round ? `/2026/${round}` : "/current/next",
   );
 
   const nextRaceIso = data

@@ -4,9 +4,10 @@ import SectionContainer from "@/components/shared/SectionContainer";
 import SectionTitle from "@/components/shared/SectionTitle";
 import { Button } from "@/components/ui/button";
 import useGetData from "@/hooks/useGetData";
-import formatDate from "@/lib/formatDate";
+
 import type { RaceInfoApiResponse } from "@/lib/types";
 import { getAssetUrl } from "@/utils/getImage";
+import { useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function RacePage() {
@@ -19,14 +20,45 @@ export default function RacePage() {
     error,
   } = useGetData<RaceInfoApiResponse>(`/2026/${raceId}`);
 
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  const raceDate = new Date(raceData?.race[0].schedule.race.date || "");
-
   const raceInfo = raceData?.race[0];
 
-  const date = raceInfo ? formatDate(raceInfo.schedule.race.date) : undefined;
+  const toRaceInstant = (
+    date: string | null | undefined,
+    time: string | null | undefined,
+  ) => {
+    if (!date || !time) return null;
+    const d = new Date(`${date}T${time}`);
+    return Number.isNaN(d.getTime()) ? null : d;
+  };
+
+  const formatLocalDate = (d: Date) =>
+    new Intl.DateTimeFormat(undefined, {
+      month: "long",
+      day: "2-digit",
+    }).format(d);
+
+  const formatLocalTime = (d: Date) =>
+    new Intl.DateTimeFormat(undefined, {
+      hour: "2-digit",
+      minute: "2-digit",
+    }).format(d);
+
+  const raceInstant = useMemo(() => {
+    return toRaceInstant(
+      raceInfo?.schedule?.race?.date,
+      raceInfo?.schedule?.race?.time,
+    );
+  }, [raceInfo?.schedule?.race?.date, raceInfo?.schedule?.race?.time]);
+
+  const now = new Date();
+  const isFuture = raceInstant ? raceInstant.getTime() > now.getTime() : false;
+
+  const displayDate = raceInstant
+    ? formatLocalDate(raceInstant)
+    : (raceInfo?.schedule?.race?.date ?? "Date TBD");
+
+  const displayTime =
+    raceInstant && isFuture ? formatLocalTime(raceInstant) : null;
 
   const handlePrevRace = () => {
     navigate(`/calendar/${raceInfo && raceInfo?.round - 1}`);
@@ -49,9 +81,7 @@ export default function RacePage() {
     <SectionContainer>
       <SectionTitle>{raceInfo?.raceName}</SectionTitle>
 
-      {raceDate && raceDate > today && (
-        <CountdownTimer round={raceInfo?.round} />
-      )}
+      {raceInstant && isFuture && <CountdownTimer round={raceInfo?.round} />}
       <div className="flex flex-col md:flex-row gap-4 border-2 bg-secondary border-secondary rounded-2xl py-5">
         <div className="flex justify-center items-center min-h-[200px]">
           <img
@@ -63,11 +93,14 @@ export default function RacePage() {
         <div className="flex flex-col gap-5 justify-start p-2">
           <p className="font-bold text-mute">Round {raceInfo?.round}</p>
           <p>
-            Date:{" "}
-            <label className="font-bold">
-              {date ?? raceInfo?.schedule.race.date}
-            </label>
+            Date: <label className="font-bold">{displayDate}</label>
           </p>
+
+          {displayTime && (
+            <p>
+              Time: <label className="font-bold">{displayTime}</label>
+            </p>
+          )}
 
           <p>
             Laps: <label className="font-bold">{raceInfo?.laps}</label>
@@ -88,7 +121,7 @@ export default function RacePage() {
               {raceInfo?.circuit.circuitName}
             </NameLink>
           </p>
-          {raceDate && raceDate < today && (
+          {raceInstant && !isFuture && (
             <p>
               <NameLink link={`/${raceInfo?.round}`}>See result</NameLink>
             </p>
