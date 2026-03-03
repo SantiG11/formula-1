@@ -11,7 +11,7 @@ export default function DriversPage() {
     data: driversData,
     loading,
     error,
-  } = useGetData<CurrentDriversInfoApiResponse>("/current/drivers");
+  } = useGetData<CurrentDriversInfoApiResponse>("/2026/drivers");
 
   if (loading) return <Skeleton className="h-full w-full" />;
   if (error) return <p>Error: {error}</p>;

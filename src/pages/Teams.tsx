@@ -12,7 +12,7 @@ export default function TeamsPage() {
     data: teamsData,
     loading,
     error,
-  } = useGetData<CurrentTeamsInfoApiResponse>("/current/teams");
+  } = useGetData<CurrentTeamsInfoApiResponse>("/2026/teams");
 
   if (loading) return <Skeleton className="h-full w-full" />;
   if (error) return <p>Error: {error}</p>;

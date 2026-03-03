@@ -22,7 +22,7 @@ export default function TeamStandings() {
     loading,
     error,
   } = useGetData<ConstructorsChampionshipApiResponse>(
-    "/current/constructors-championship",
+    "/2026/constructors-championship",
   );
 
   if (loading)

@@ -24,9 +24,7 @@ export default function DriverStandings() {
     data: driversData,
     loading,
     error,
-  } = useGetData<DriversChampionshipApiResponse>(
-    "/current/drivers-championship",
-  );
+  } = useGetData<DriversChampionshipApiResponse>("/2026/drivers-championship");
 
   if (loading)
     return (

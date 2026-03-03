@@ -31,15 +31,15 @@ export default function CircuitPage() {
     <SectionContainer>
       <SectionTitle>{circuit?.circuitName}</SectionTitle>
 
-      <div className="flex flex-col md:flex-row gap-4 border-2 bg-secondary border-secondary rounded-2xl py-5 mb-2">
+      <div className="flex flex-col  gap-8 border-2 bg-secondary border-secondary rounded-2xl py-5 mb-2">
         <div className="flex  justify-center items-center">
           <img
             src={assetUrl || ""}
             alt={circuit?.circuitId}
-            className="object-contain  border-2 border-accent aspect-auto h-full"
+            className="object-contain  border-2 border-accent aspect-auto h-full max-h-[300px]"
           />
         </div>
-        <div className="flex flex-col gap-5 justify-start p-2">
+        <div className="grid md:grid-cols-2 gap-4 mx-4  p-2">
           <p>
             Lenght:{" "}
             <label className="font-bold">{circuit?.circuitLength}</label>

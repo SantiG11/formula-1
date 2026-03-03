@@ -28,15 +28,15 @@ export default function TeamPage() {
     <SectionContainer>
       <SectionTitle>{teamData?.team.teamName}</SectionTitle>
 
-      <div className="flex flex-col md:flex-row gap-4 border-2 border-secondary rounded-2xl bg-secondary py-5 px-2">
-        <div className="flex justify-center items-center min-h-[150px]">
+      <div className="flex flex-col  gap-4 p-2  border-2 border-secondary rounded-2xl bg-secondary py-5 px-2">
+        <div className="flex justify-center items-center min-h-[200px]">
           <img
             src={assetUrl || ""}
             alt={teamData?.team.teamId}
             className="flex object-contain justify-center items-center  w-sm"
           />
         </div>
-        <div className="flex flex-col gap-5 justify-start p-2">
+        <div className="grid md:grid-cols-2 gap-4 mx-4 justify-start p-2">
           <p>
             Country:{" "}
             <label className="font-bold">

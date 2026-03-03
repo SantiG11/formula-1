@@ -82,7 +82,7 @@ export default function RacePage() {
       <SectionTitle>{raceInfo?.raceName}</SectionTitle>
 
       {raceInstant && isFuture && <CountdownTimer round={raceInfo?.round} />}
-      <div className="flex flex-col md:flex-row gap-4 border-2 bg-secondary border-secondary rounded-2xl py-5">
+      <div className="flex flex-col gap-8 border-2 bg-secondary border-secondary rounded-2xl py-5 mb-2">
         <div className="flex justify-center items-center min-h-[200px]">
           <img
             src={assetUrl || ""}
@@ -90,7 +90,7 @@ export default function RacePage() {
             className="object-contain max-h-[300px] w-full md:w-auto"
           />
         </div>
-        <div className="flex flex-col gap-5 justify-start p-2">
+        <div className="grid md:grid-cols-2 gap-4 mx-4 justify-start p-2">
           <p className="font-bold text-mute">Round {raceInfo?.round}</p>
           <p>
             Date: <label className="font-bold">{displayDate}</label>
