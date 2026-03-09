@@ -33,11 +33,13 @@ export default function DriverPage() {
 
       <div className="flex flex-col  gap-4 bg-secondary rounded-2xl py-5">
         <div className="flex justify-center items-center">
-          <img
-            src={assetUrl || ""}
-            alt={driverData?.driver.driverId}
-            className="object-contain max-h-[300px] w-full md:w-auto"
-          />
+          <div className="w-86 h-86 overflow-hidden rounded-xl">
+            <img
+              src={assetUrl || ""}
+              alt={driverData?.driver.driverId}
+              className="w-full h-full object-cover object-top"
+            />
+          </div>
         </div>
 
         <div className="flex flex-col gap-4 justify-start p-2 mx-4 bg-secondary/40 flex-1 rounded-md">

@@ -28,11 +28,13 @@ export default function DriverInfoCard(driver: Driver) {
             </CardTitle>
           </CardHeader>
           <CardContent className=" ">
-            <img
-              src={assetUrl || ""}
-              alt={driver.driverId}
-              className="flex justify-center items-center  min-h-[200px]"
-            />
+            <div className="w-full h-46 overflow-hidden rounded-xl">
+              <img
+                src={assetUrl || ""}
+                alt={driver.driverId}
+                className="w-full h-full object-cover object-top "
+              />
+            </div>
           </CardContent>
         </Card>
       </NameLink>
