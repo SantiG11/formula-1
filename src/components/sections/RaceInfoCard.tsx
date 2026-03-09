@@ -60,6 +60,7 @@ export default function RaceInfoCard(race: RaceInfo) {
         <CardFooter>
           <CardDescription className="flex flex-col gap-1 mt-2 justify-end">
             <p>{localDateTime} </p>
+
             <p>
               {race.circuit.city}, {race.circuit.country}
             </p>
