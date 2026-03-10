@@ -25,7 +25,7 @@ export default function RaceResultContainer({ round }: RaceResultProps) {
   }, [lastRoundNumber]);
 
   const isLastRace = currentRound === lastRoundNumber;
-  const raceEndpoint = currentRound ? `/2025/${currentRound}/race` : "";
+  const raceEndpoint = currentRound ? `/2026/${currentRound}/race` : "";
 
   const handlePrevRace = () => {
     setCurrentRound((prev) => (prev ? prev - 1 : null));

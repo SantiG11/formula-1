@@ -48,18 +48,20 @@ export default function RaceResult({ race, isLastRace }: RaceResultProps) {
 
   return (
     <SectionContainer>
-      <SectionTitle>
-        {isLastRace ? `Last race results (round ${round})` : `Round ${round}`}
-      </SectionTitle>
-      <h3>{raceData?.races?.raceName ?? "Race Name"}</h3>
-      <p>
-        {raceData?.races?.date
-          ? formatDate(raceData?.races?.date)
-          : "Race Date"}
-      </p>
+      <div className="flex flex-col gap-1">
+        <SectionTitle>
+          {isLastRace ? `Last race results (round ${round})` : `Round ${round}`}
+        </SectionTitle>
+        <h3>{raceData?.races?.raceName ?? "Race Name"}</h3>
+        <p>
+          {raceData?.races?.date
+            ? formatDate(raceData?.races?.date)
+            : "Race Date"}
+        </p>
+      </div>
 
       <TableContainer>
-        <Table className="text-xs">
+        <Table className="text-sm">
           <TableCaption>
             {raceData?.races?.raceName ?? "Race Name"}
           </TableCaption>
@@ -79,7 +81,7 @@ export default function RaceResult({ race, isLastRace }: RaceResultProps) {
                   <TableCell className="text-center">
                     {result.position}
                   </TableCell>
-                  <TableCell className="text-center text-pretty md:text-left w-[20%]">
+                  <TableCell className="text-center text-pretty  w-[20%]">
                     <NameLink link={`/drivers/${result.driver.driverId}`}>
                       {isMobile
                         ? result.driver.shortName
@@ -90,7 +92,7 @@ export default function RaceResult({ race, isLastRace }: RaceResultProps) {
                     {result.driver.number}
                   </TableCell>
                   <TableCell
-                    className={`text-center text-pretty md:text-leftw-[20%]`}
+                    className={`text-center text-pretty md:text-center w-[20%]`}
                   >
                     <NameLink link={`/teams/${result.team.teamId}`}>
                       {result.team.teamName

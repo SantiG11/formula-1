@@ -67,6 +67,8 @@ export default function DriverPage() {
               {driverData?.driver.nationality}
             </label>
           </p>
+
+          <p className=" px-2  py-1">Birthday: {driverData?.driver.birthday}</p>
         </div>
       </div>
     </SectionContainer>

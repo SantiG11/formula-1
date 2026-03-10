@@ -22,7 +22,7 @@ export default function CalendarPage() {
     time: string | null,
   ): Date | null => {
     if (!date || !time) return null;
-    const iso = `${date}T${time}`; // valid ISO because time contains "Z"
+    const iso = `${date}T${time}`;
     const d = new Date(iso);
     return Number.isNaN(d.getTime()) ? null : d;
   };
@@ -91,14 +91,14 @@ export default function CalendarPage() {
 
   return (
     <SectionContainer>
-      <SectionTitle>Calendar</SectionTitle>
+      <SectionTitle>2026 Championship Calendar</SectionTitle>
 
       <Calendar
         mode="multiple"
         selected={selectedDates}
         onDayClick={handleDayClick}
         onSelect={() => {}}
-        className="rounded-lg border self-center w-90 md:w-105"
+        className="rounded-lg border self-center w-90 md:w-105 mt-4"
         fixedWeeks
         showOutsideDays={false}
       />

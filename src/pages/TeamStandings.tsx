@@ -39,7 +39,7 @@ export default function TeamStandings() {
       <SectionTitle>Constructors Championship</SectionTitle>
 
       <TableContainer>
-        <Table className="text-xs w-[100%] ">
+        <Table className="text-sm w-[100%] ">
           <TableHeader>
             <TableRow className="hover:bg-transparent">
               <TableHead className="text-center">Pos</TableHead>

@@ -40,7 +40,7 @@ export default function DriverStandings() {
       <SectionTitle>Drivers Championship</SectionTitle>
 
       <TableContainer>
-        <Table className="text-xs">
+        <Table className="text-sm font-bold">
           <TableHeader>
             <TableRow className="hover:bg-transparent">
               <TableHead className="text-center">Pos</TableHead>

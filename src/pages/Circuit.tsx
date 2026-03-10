@@ -42,7 +42,7 @@ export default function CircuitPage() {
         <div className="grid md:grid-cols-2 gap-4 mx-4  p-2">
           <p>
             Lenght:{" "}
-            <label className="font-bold">{circuit?.circuitLength}</label>
+            <label className="font-bold">{circuit?.circuitLength}km</label>
           </p>
           <p>
             Country: <label className="font-bold">{circuit?.country}</label>
