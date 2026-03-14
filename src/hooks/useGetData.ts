@@ -25,7 +25,7 @@ export default function useGetData<T>(endpoint: string) {
         setLoading(false);
       }
     };
-    console.log(API_BASE_URL);
+
     fetchData();
   }, [endpoint]);
 
