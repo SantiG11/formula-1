@@ -8,6 +8,8 @@ export default function SectionContainer({
   classes,
 }: SectionContainerProps) {
   return (
-    <section className={`flex flex-col gap-2  ${classes}`}>{children}</section>
+    <section className={`flex flex-col gap-2 pb-4 ${classes}`}>
+      {children}
+    </section>
   );
 }
