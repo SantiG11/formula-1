@@ -1,69 +1,144 @@
-# React + TypeScript + Vite
+# Formula 1
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A fan-made Formula 1 web application that displays information about the current season, including the next race, latest race results, championship standings, drivers, teams, circuits, and the race calendar.
 
-Currently, two official plugins are available:
+## Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[View the project](https://formula-1-two-omega.vercel.app/)
 
-## Expanding the ESLint configuration
+## Overview
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+The app is organized into several pages focused on Formula 1 season information. The home page shows a main title, a countdown to the next race, and a table with the latest race result. Other pages allow users to explore race results, the full calendar, driver standings, constructor standings, drivers, teams, and circuits.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Features
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- Home page with a countdown to the next Grand Prix
+- Latest race result table
+- Race results by round
+- Race calendar with individual race pages
+- Driver standings table
+- Constructor standings table
+- Drivers page with individual driver details
+- Teams page with individual team details
+- Circuits page with individual circuit details
+- Responsive navigation for desktop and mobile screens
+- Data fetched from an external Formula 1 API
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Tech Stack
+
+- React
+- TypeScript
+- Vite
+- React Router
+- Tailwind CSS
+- Radix UI components
+- Lucide React icons
+- Native Fetch API
+
+## Project Structure
+
+```text
+src/
+├── assets/              # Driver, team, and circuit images
+├── components/          # Reusable UI and layout components
+│   ├── sections/        # Main page sections
+│   ├── shared/          # Shared components used across pages
+│   └── ui/              # Base UI components
+├── hooks/               # Custom React hooks
+├── lib/                 # Types, constants, and helper functions
+├── pages/               # Route-level pages
+├── utils/               # Utility functions
+├── App.tsx              # App routes
+└── main.tsx             # Application entry point
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Main Routes
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+| Route | Description |
+| --- | --- |
+| `/` | Home page with next race countdown and latest result |
+| `/drivers` | List of drivers |
+| `/drivers/:driverId` | Driver detail page |
+| `/teams` | List of teams |
+| `/teams/:teamId` | Team detail page |
+| `/circuits` | List of circuits |
+| `/circuits/:circuitId` | Circuit detail page |
+| `/calendar` | Season race calendar |
+| `/calendar/:raceId` | Race detail page |
+| `/:resultId` | Race result page by round |
+| `/driverStandings` | Driver championship standings |
+| `/teamStandings` | Constructor championship standings |
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Getting Started
+
+### Prerequisites
+
+Make sure you have Node.js and npm installed.
+
+### Installation
+
+```bash
+npm install
 ```
+
+### Environment Variables
+
+Create a `.env.local` file in the project root and add the API base URL:
+
+```bash
+VITE_API_BASE_URL=your_api_base_url
+```
+
+The app uses this value to build the API requests.
+
+### Run the Development Server
+
+```bash
+npm run dev
+```
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+### Preview the Production Build
+
+```bash
+npm run preview
+```
+
+### Run Linting
+
+```bash
+npm run lint
+```
+
+## API Usage
+
+The project fetches Formula 1 data using a reusable custom hook located in `src/hooks/useGetData.ts`. The API base URL is read from `VITE_API_BASE_URL`.
+
+Some of the main endpoints used by the app include:
+
+- `/current/next`
+- `/current/last/race`
+- `/2026`
+- `/2026/drivers`
+- `/2026/teams`
+- `/circuits`
+- `/2026/drivers-championship`
+- `/2026/constructors-championship`
+- `/2026/:raceId`
+- `/2026/:round/race`
+
+## Notes
+
+- The project is a client-side React application.
+- Images for drivers, teams, and circuits are stored locally in the `src/assets` folder.
+- The UI is designed to be responsive and easy to navigate.
+- Some API routes are currently tied to the 2026 season.
+
+## Disclaimer
+
+This is a fan-made project created for educational and portfolio purposes. It is not affiliated with, endorsed by, or sponsored by Formula 1 or its related entities.
