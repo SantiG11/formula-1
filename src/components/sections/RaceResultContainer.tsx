@@ -15,7 +15,7 @@ export default function RaceResultContainer({ round }: RaceResultProps) {
   );
 
   const { data: lastRaceData } =
-    useGetData<RaceResultApiResponse>("/current/last/race");
+    useGetData<RaceResultApiResponse>("/2026/3/race");
   const lastRoundNumber = lastRaceData?.races?.round;
 
   useEffect(() => {
